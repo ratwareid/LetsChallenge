@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lets Challenge</string>
+    <string name="hint_til_username">Username</string>
+    <string name="hint_til_password">Password</string>
+</resources>
