@@ -7,11 +7,21 @@
     tools:context=".activity.HomeActivity">
 
     <TextView
+        android:id="@+id/helloworld"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hello World"
         android:textAlignment="center"
         android:textSize="50dp"
         android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/helloworld"
+        android:text="Logut"
+        android:onClick="logout"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_textinputlayout">15dp</dimen>
+    <dimen name="margin_textinputlayout">20dp</dimen>
 </resources>

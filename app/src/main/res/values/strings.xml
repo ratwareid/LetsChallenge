@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Lets Challenge</string>
-    <string name="hint_til_username">Username</string>
+    <string name="hint_til_email">Email</string>
     <string name="hint_til_password">Password</string>
+    <string name="txtbtn_login">MASUK</string>
+    <string name="txtbtn_register">DAFTAR</string>
+    <string name="title_register">Buat Akun</string>
+    <string name="hint_et_email">Alamat Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_retype_password">Ketik Ulang Password</string>
+    <string name="txtbtn_submit">KIRIM</string>
 </resources>
