@@ -9,4 +9,9 @@
     <string name="hint_password">Password</string>
     <string name="hint_retype_password">Ketik Ulang Password</string>
     <string name="txtbtn_submit">KIRIM</string>
+
+    <!--//Menu Bottom Navigation-->
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="account">Account</string>
 </resources>
