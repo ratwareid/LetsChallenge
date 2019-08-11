@@ -20,10 +20,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.ratwareid.letschallenge.R;
-import com.ratwareid.letschallenge.tools.SPUserdataKey;
-import com.ratwareid.letschallenge.tools.SharedPreferenceManager;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Context context;
     private TextInputEditText ETpassword,ETemail;
     private FirebaseAuth fAuth;
-    private SharedPreferenceManager spManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ETemail = findViewById(R.id.MAT_editemail);
         context = this.getApplicationContext();
         fAuth = FirebaseAuth.getInstance();
-        spManager = new SharedPreferenceManager(this);
 
         if(fAuth.getCurrentUser() != null){
             moveToHome();
