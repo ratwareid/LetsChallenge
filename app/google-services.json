@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "192670619271",
+    "firebase_url": "https://lets-challenge.firebaseio.com",
+    "project_id": "lets-challenge",
+    "storage_bucket": "lets-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192670619271:android:c4e441094da0a257",
+        "android_client_info": {
+          "package_name": "com.ratwareid.letschallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192670619271-bqbsrmm5c99826c9jlomabu79mhiql7n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ratwareid.letschallenge",
+            "certificate_hash": "908f8341f0c7c61911c8acb23ae3b4a9906ba796"
+          }
+        },
+        {
+          "client_id": "192670619271-r8kfnk9rne3e4vpvkpvfsn7a90qo9oh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6CZEIRL13xl1-RaSEb0f9926_ttPn82U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192670619271-r8kfnk9rne3e4vpvkpvfsn7a90qo9oh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
