@@ -82,8 +82,8 @@ public class TambahJenis extends AppCompatActivity {
                                 false);
 
                         submitUser(new Jenis(
-                                Snama.toLowerCase(),
-                                Skode.toLowerCase(),
+                                Snama,
+                                Skode.toUpperCase(),
                                 ""));
 
                     }
@@ -103,8 +103,8 @@ public class TambahJenis extends AppCompatActivity {
                                 false);
 
                         editUser(new Jenis(
-                                Snama.toLowerCase(),
-                                Skode.toLowerCase(),
+                                Snama,
+                                Skode.toUpperCase(),
                                         "")
                                 , stID);
 

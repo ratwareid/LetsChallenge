@@ -11,13 +11,28 @@
         android:layout_margin="10dp"
         card_view:cardCornerRadius="5dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RV_Jenis"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:cardElevation="2dp"
-            card_view:cardUseCompatPadding="true">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sport Competition"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RV_Jenis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardElevation="2dp"
+                card_view:cardUseCompatPadding="true">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
