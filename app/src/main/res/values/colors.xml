@@ -5,4 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorNavigationIcon">#dae9f6</color>
     <color name="colorNavigationText">#ffffff</color>
+    <color name="black">#050000</color>
+    <color name="selected">#2c9e26</color>
+    <color name="colorciv">#f22cbd</color>
+    <color name="colorbottom">#6642f5</color>
+    <color name="colorblue">#05d3f2</color>
 </resources>

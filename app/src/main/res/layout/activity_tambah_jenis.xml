@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TambahJenis"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+
+    <EditText
+        android:id="@+id/etNama"
+        android:layout_marginTop="10dp"
+        android:hint="Nama Jenis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/etKode"
+        android:layout_marginTop="5dp"
+        android:hint="Kode Jenis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

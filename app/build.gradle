@@ -34,4 +34,6 @@ dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.google.firebase:firebase-auth:18.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.google.firebase:firebase-database:18.0.1'
 }

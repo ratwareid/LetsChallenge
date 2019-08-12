@@ -18,6 +18,8 @@ import com.ratwareid.letschallenge.fragment.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     FirebaseAuth firebaseAuth;
+    BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     // kita set default nya Home Fragment
         loadFragment(new HomeFragment());
     // inisialisasi BottomNavigaionView
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main);
+        bottomNavigationView = findViewById(R.id.bn_main);
     // beri listener pada saat item/menu bottomnavigation terpilih
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
