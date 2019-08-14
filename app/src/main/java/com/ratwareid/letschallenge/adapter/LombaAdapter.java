@@ -62,9 +62,9 @@ public class LombaAdapter extends RecyclerView.Adapter<LombaAdapter.ViewHolder> 
             tanggallomba.setText(lomba.getTanggal_lomba());
             lokasilomba.setText(lomba.getAlamat_lomba());
 
-            /*String imgdecoded = jenis.getImgjenis();
+            String imgdecoded = lomba.getLogo_lomba();
             byte[] decodedString = Base64.decode(imgdecoded, Base64.DEFAULT);
-            imgJenis.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));*/
+            imgLomba.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
         }
 
         @Override

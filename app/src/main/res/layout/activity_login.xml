@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:hint="@string/hint_til_email"
+                android:textColor="@color/black"
                 android:lines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,8 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_textinputlayout"
             app:boxBackgroundColor="@android:color/transparent"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@android:color/white">
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/MAT_editpassword"
@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="@string/hint_til_password"
+                android:textColor="@color/black"
                 android:lines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 

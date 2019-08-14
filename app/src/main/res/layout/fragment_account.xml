@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -16,22 +17,60 @@
         app:civ_border_width="2dp"/>
 
     <EditText
-        android:id="@+id/et_username"
+        android:id="@+id/et_email"
         android:layout_below="@id/civ_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:hint="\@your_username"
+        android:hint="\@your_uemail"
         android:enabled="false"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CV_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_email"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Biography is Here"
+            android:padding="10dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/colorbottom"
+        android:layout_below="@id/CV_bio"
+        android:text="Ubah Profile"
+        android:textColor="@android:color/white"/>
 
         <Button
             android:id="@+id/btn_TJ"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tambah Jenis"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/et_username"/>
+            android:layout_below="@id/btn_edit_profile"
+            android:enabled="false"
+            android:layout_margin="10dp"
+            android:visibility="gone"/>
 
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/btn_TJ"
+            android:text="Logout"/>
 
 
 </RelativeLayout>

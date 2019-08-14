@@ -15,19 +15,25 @@
         app:titleTextColor="@android:color/white"
         />
 
-    <AutoCompleteTextView
-        android:id="@+id/autocomplete"
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:focusable="false"/>
+        android:layout_below="@id/autocomplete">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RV_listlomba"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/autocomplete"
-        android:layout_margin="5dp"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RV_listlomba"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            />
 
+    </ScrollView>
 </RelativeLayout>

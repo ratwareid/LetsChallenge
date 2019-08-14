@@ -2,6 +2,7 @@ package com.ratwareid.letschallenge.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,16 @@ public class HomeFragment extends Fragment {
     public void initialize(View view){
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView = view.findViewById(R.id.RV_Jenis);
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),4));
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),4));
+        }
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),8));
+        }
+
+
+
 
         activity = (HomeActivity) this.getActivity();
         context = this.getContext();
