@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.ListLombaActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorbottom"
+        app:titleTextColor="@android:color/white"
+        />
+
+    <AutoCompleteTextView
+        android:id="@+id/autocomplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:focusable="false"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RV_listlomba"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/autocomplete"
+        android:layout_margin="5dp"
+        />
+
+</RelativeLayout>

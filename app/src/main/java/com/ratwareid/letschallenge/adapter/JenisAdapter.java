@@ -1,7 +1,9 @@
 package com.ratwareid.letschallenge.adapter;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ratwareid.letschallenge.R;
+import com.ratwareid.letschallenge.activity.ListLombaActivity;
 import com.ratwareid.letschallenge.model.Jenis;
 
 import java.util.ArrayList;
@@ -57,6 +60,10 @@ public class JenisAdapter extends RecyclerView.Adapter<JenisAdapter.ViewHolder> 
         public void onClick(View view) {
             Jenis jenis = mJenis.get(getAdapterPosition());
             //TODO::Event ketika di klik
+            Intent myIntent = new Intent(activity, ListLombaActivity.class);
+            myIntent.putExtra("jenis_kode",jenis.getKodejenis());
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity);
+            activity.startActivity(myIntent,options.toBundle());
         }
     }
 

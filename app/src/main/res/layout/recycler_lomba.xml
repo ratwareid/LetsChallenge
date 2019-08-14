@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="3dp"
+    android:layout_margin="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/CIV_lomba"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_racing_flag"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TV_judullomba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Judul Lomba"
+                android:textSize="20dp"
+                android:textColor="@color/colorbottom"
+                android:textStyle="bold"
+                android:layout_margin="3dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calendar"/>
+
+                <TextView
+                    android:id="@+id/TV_tanggallomba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" 01/01/2019"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_placeholder"/>
+
+                <TextView
+                    android:id="@+id/TV_lokasilomba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Gedung Balai Sarbini Jaktim"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

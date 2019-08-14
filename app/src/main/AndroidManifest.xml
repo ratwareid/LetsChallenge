@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
+        <activity
+            android:name=".activity.ListLombaActivity"
+            android:label="List Perlombaan"
+            android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+
         <activity android:name=".activity.TambahJenis" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
