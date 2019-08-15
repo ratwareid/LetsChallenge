@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private MaterialButton btnTJ;
     private Button btnLogout;
+    private EditText etEmail;
+    private TextView tvBio;
 
     @Nullable
     @Override
@@ -50,6 +54,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             btnTJ.setVisibility(View.VISIBLE);
             btnTJ.setEnabled(true);
         }
+        etEmail = view.findViewById(R.id.et_email);
+        tvBio = view.findViewById(R.id.tv_bio);
+
+        etEmail.setText(Constant.getLoginemail());
     }
 
     @Override

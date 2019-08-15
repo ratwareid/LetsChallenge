@@ -1,25 +1,23 @@
 package com.ratwareid.letschallenge.model;
 
 public class Lomba {
-    private String alamat_lomba,deskripsi_lomba,nama_lomba,penyelenggara,pilihan_lomba,tanggal_lomba,jenis_lomba;
-    private String logo_lomba;
-    private Long biaya_pendaftaran,id_lomba,jumlah_peserta,total_hadiah;
+    private String alamat_lomba,deskripsi_lomba,nama_lomba,penyelenggara,tanggal_lomba,jenis_lomba;
+    private String logo_lomba,jumlah_peserta;
+    private Long biaya_pendaftaran,total_hadiah;
     private String key;
 
     public Lomba(){ }
 
-    public Lomba(String alamat_lomba,String deskripsi_lomba,String nama_lomba,String penyelenggara,String pilihan_lomba,String tanggal_lomba,String jenis_lomba,
-                    Long biaya_pendaftaran,Long id_lomba,Long jumlah_peserta,Long total_hadiah,String logo_lomba){
+    public Lomba(String alamat_lomba,String deskripsi_lomba,String nama_lomba,String penyelenggara,String tanggal_lomba,String jenis_lomba,
+                    Long biaya_pendaftaran,String jumlah_peserta,Long total_hadiah,String logo_lomba){
         this.alamat_lomba = alamat_lomba;
         this.deskripsi_lomba = deskripsi_lomba;
         this.nama_lomba = nama_lomba;
         this.penyelenggara = penyelenggara;
-        this.pilihan_lomba = pilihan_lomba;
         this.tanggal_lomba = tanggal_lomba;
         this.jenis_lomba = jenis_lomba;
         this.logo_lomba = logo_lomba;
         this.biaya_pendaftaran = biaya_pendaftaran;
-        this.id_lomba = id_lomba;
         this.jumlah_peserta = jumlah_peserta;
         this.total_hadiah = total_hadiah;
     }
@@ -56,14 +54,6 @@ public class Lomba {
         this.penyelenggara = penyelenggara;
     }
 
-    public String getPilihan_lomba() {
-        return pilihan_lomba;
-    }
-
-    public void setPilihan_lomba(String pilihan_lomba) {
-        this.pilihan_lomba = pilihan_lomba;
-    }
-
     public Long getBiaya_pendaftaran() {
         return biaya_pendaftaran;
     }
@@ -72,19 +62,11 @@ public class Lomba {
         this.biaya_pendaftaran = biaya_pendaftaran;
     }
 
-    public Long getId_lomba() {
-        return id_lomba;
-    }
-
-    public void setId_lomba(Long id_lomba) {
-        this.id_lomba = id_lomba;
-    }
-
-    public Long getJumlah_peserta() {
+    public String getJumlah_peserta() {
         return jumlah_peserta;
     }
 
-    public void setJumlah_peserta(Long jumlah_peserta) {
+    public void setJumlah_peserta(String jumlah_peserta) {
         this.jumlah_peserta = jumlah_peserta;
     }
 

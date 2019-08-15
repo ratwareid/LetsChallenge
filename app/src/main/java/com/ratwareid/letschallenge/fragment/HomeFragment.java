@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
     private JenisAdapter adapter;
     private Context context;
     private HomeActivity activity;
+    private ProgressDialog loading;
 
 
     @Nullable
@@ -57,19 +59,21 @@ public class HomeFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),8));
         }
 
-
-
-
         activity = (HomeActivity) this.getActivity();
         context = this.getContext();
+    }
+
+    public void loaddata(){
+
+        loading = ProgressDialog.show(activity,
+                null,
+                "Please wait...",
+                true,
+                false);
 
         database.child("jenis_lomba").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                /**
-                 * Saat ada data baru, masukkan datanya ke ArrayList
-                 */
                 jenismodel = new ArrayList<>();
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     Jenis mjenis = noteDataSnapshot.getValue(Jenis.class);
@@ -79,19 +83,20 @@ public class HomeFragment extends Fragment {
 
                 adapter = new JenisAdapter(context, jenismodel,activity );
                 recyclerView.setAdapter(adapter);
+                loading.dismiss();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                /**
-                 * Kode ini akan dipanggil ketika ada error dan
-                 * pengambilan data gagal dan memprint error nya
-                 * ke LogCat
-                 */
+                loading.dismiss();
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.loaddata();
+    }
 }

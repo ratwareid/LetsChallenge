@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Context context;
     private TextInputEditText ETpassword,ETemail;
     private FirebaseAuth fAuth;
+    private ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,14 +82,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void doSignIn(String email,String password) throws Exception{
+
+        loading = ProgressDialog.show(LoginActivity.this,
+                null,
+                "Please wait...",
+                true,
+                false);
+
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
+                    loading.dismiss();
                     moveToHome();
                 }
                 else {
+                    loading.dismiss();
                     Toast.makeText(LoginActivity.this,
                             "Username atau password yang anda masukkan salah", Toast.LENGTH_SHORT).show();
                 }

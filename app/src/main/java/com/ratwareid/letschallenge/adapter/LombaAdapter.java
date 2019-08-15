@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.activity.HomeActivity;
 import com.ratwareid.letschallenge.activity.ListLombaActivity;
+import com.ratwareid.letschallenge.activity.ListLombaDetailActivity;
 import com.ratwareid.letschallenge.model.Jenis;
 import com.ratwareid.letschallenge.model.Lomba;
 
@@ -71,7 +72,9 @@ public class LombaAdapter extends RecyclerView.Adapter<LombaAdapter.ViewHolder> 
         public void onClick(View view) {
             Lomba lomba = mLomba.get(getAdapterPosition());
             //TODO::Event ketika di klik
-            Intent myIntent = new Intent(activity, HomeActivity.class);
+            Intent myIntent = new Intent(activity, ListLombaDetailActivity.class);
+            myIntent.putExtra("jenis_kode",lomba.getJenis_lomba());
+            myIntent.putExtra("key",lomba.getKey());
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity);
             activity.startActivity(myIntent,options.toBundle());
         }

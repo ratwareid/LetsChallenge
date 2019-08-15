@@ -13,7 +13,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:src="@drawable/sample_profile"
-        app:civ_border_color="@color/colorciv"
+        app:civ_border_color="@color/black"
         app:civ_border_width="2dp"/>
 
     <EditText
@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:hint="\@your_uemail"
+        android:textColor="@color/colorbottom"
+        android:textStyle="italic|bold"
         android:enabled="false"/>
 
     <androidx.cardview.widget.CardView
@@ -35,6 +37,7 @@
         app:cardElevation="5dp">
 
         <TextView
+            android:id="@+id/tv_bio"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Biography is Here"
