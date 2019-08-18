@@ -34,6 +34,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/CIV_lomba"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     app:civ_border_color="@color/black"
@@ -58,10 +59,11 @@
                             android:src="@drawable/ic_contest"/>
 
                         <TextView
+                            android:id="@+id/TV_namalomba"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:textSize="18dp"
+                            android:textSize="15dp"
                             android:layout_margin="5dp"
                             android:textStyle="bold"
                             android:hint="Nama Perlombaan"/>
@@ -79,10 +81,11 @@
                             android:scaleType="fitXY"/>
 
                         <TextView
+                            android:id="@+id/TV_tanggallomba"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:textSize="18dp"
+                            android:textSize="15dp"
                             android:layout_margin="5dp"
                             android:textStyle="bold"
                             android:hint="Tanggal Pelaksanaan"/>
@@ -100,10 +103,11 @@
                             android:scaleType="fitXY"/>
 
                         <TextView
+                            android:id="@+id/TV_tempatlomba"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:textSize="18dp"
+                            android:textSize="15dp"
                             android:layout_margin="5dp"
                             android:textStyle="bold"
                             android:hint="Tempat Pelaksanaan"/>
@@ -123,6 +127,7 @@
                 android:id="@+id/deskripsi">
 
                 <TextView
+                    android:id="@+id/deskripsilomba"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tulis Penjelasan Lomba Disini"
@@ -146,18 +151,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="4"
+                        android:weightSum="5"
                         android:orientation="horizontal"
                         android:padding="5dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="3"
                             android:paddingHorizontal="10dp"
                             android:text="Penyelenggara : " />
 
                         <TextView
+                            android:id="@+id/penyelenggara"
                             android:paddingHorizontal="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -168,7 +174,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="4"
+                        android:weightSum="5"
                         android:orientation="horizontal"
                         android:padding="5dp">
 
@@ -177,9 +183,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Jenis Perlombaan: "
-                            android:layout_weight="2"/>
+                            android:layout_weight="3"/>
 
                         <TextView
+                            android:id="@+id/namajenis"
                             android:paddingHorizontal="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -190,7 +197,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="4"
+                        android:weightSum="5"
                         android:orientation="horizontal"
                         android:padding="5dp">
 
@@ -199,9 +206,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Jumlah Peserta: "
-                            android:layout_weight="2"/>
+                            android:layout_weight="3"/>
 
                         <TextView
+                            android:id="@+id/jumlahpeserta"
                             android:paddingHorizontal="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -212,7 +220,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="4"
+                        android:weightSum="5"
                         android:orientation="horizontal"
                         android:padding="5dp">
 
@@ -221,9 +229,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Biaya Pendaftaran: "
-                            android:layout_weight="2"/>
+                            android:layout_weight="3"/>
 
                         <TextView
+                            android:id="@+id/biayapendaftaran"
                             android:paddingHorizontal="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -234,7 +243,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="4"
+                        android:weightSum="5"
                         android:orientation="horizontal"
                         android:padding="5dp">
 
@@ -243,9 +252,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Total Hadiah: "
-                            android:layout_weight="2"/>
+                            android:layout_weight="3"/>
 
                         <TextView
+                            android:id="@+id/totalhadiah"
                             android:paddingHorizontal="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -267,6 +277,7 @@
                 android:layout_margin="30dp">
 
                 <Button
+                    android:id="@+id/btn_simpan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Simpan"
@@ -276,6 +287,7 @@
                     />
 
                 <Button
+                    android:id="@+id/btn_daftar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Daftar"

@@ -2,14 +2,14 @@ package com.ratwareid.letschallenge.model;
 
 public class Lomba {
     private String alamat_lomba,deskripsi_lomba,nama_lomba,penyelenggara,tanggal_lomba,jenis_lomba;
-    private String logo_lomba,jumlah_peserta;
+    private String logo_lomba,jumlah_peserta,nama_jenis;
     private Long biaya_pendaftaran,total_hadiah;
     private String key;
 
     public Lomba(){ }
 
     public Lomba(String alamat_lomba,String deskripsi_lomba,String nama_lomba,String penyelenggara,String tanggal_lomba,String jenis_lomba,
-                    Long biaya_pendaftaran,String jumlah_peserta,Long total_hadiah,String logo_lomba){
+                    Long biaya_pendaftaran,String jumlah_peserta,Long total_hadiah,String logo_lomba,String nama_jenis){
         this.alamat_lomba = alamat_lomba;
         this.deskripsi_lomba = deskripsi_lomba;
         this.nama_lomba = nama_lomba;
@@ -20,6 +20,7 @@ public class Lomba {
         this.biaya_pendaftaran = biaya_pendaftaran;
         this.jumlah_peserta = jumlah_peserta;
         this.total_hadiah = total_hadiah;
+        this.nama_jenis = nama_jenis;
     }
 
     public String getAlamat_lomba() {
@@ -108,5 +109,13 @@ public class Lomba {
 
     public void setLogo_lomba(String logo_lomba) {
         this.logo_lomba = logo_lomba;
+    }
+
+    public String getNama_jenis() {
+        return nama_jenis;
+    }
+
+    public void setNama_jenis(String nama_jenis) {
+        this.nama_jenis = nama_jenis;
     }
 }

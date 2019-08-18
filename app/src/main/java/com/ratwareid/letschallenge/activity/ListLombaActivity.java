@@ -79,9 +79,14 @@ public class ListLombaActivity extends AppCompatActivity {
                 listlomba = new ArrayList<>();
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     Lomba mlomba = noteDataSnapshot.getValue(Lomba.class);
-                    if (mlomba.getJenis_lomba().equalsIgnoreCase(jeniskode)) {
+                    if (jeniskode.equalsIgnoreCase("ALL")) {
                         mlomba.setKey(noteDataSnapshot.getKey());
                         listlomba.add(mlomba);
+                    }else{
+                        if (mlomba.getJenis_lomba().equalsIgnoreCase(jeniskode)) {
+                            mlomba.setKey(noteDataSnapshot.getKey());
+                            listlomba.add(mlomba);
+                        }
                     }
                 }
 
