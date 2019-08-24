@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.ratwareid.letschallenge.PermissionManager;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.fragment.AccountFragment;
 import com.ratwareid.letschallenge.fragment.FavoriteFragment;

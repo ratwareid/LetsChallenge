@@ -21,6 +21,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.ratwareid.letschallenge.PermissionManager;
 import com.ratwareid.letschallenge.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initialize(){
+        checkpermission();
         btnLogin = findViewById(R.id.MAT_btnlogin);
         btnLogin.setOnClickListener(this);
         btnRegis = findViewById(R.id.MAT_btnregis);
@@ -112,5 +114,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
         startActivity(myIntent,options.toBundle());
+    }
+
+    public void checkpermission(){
+
+        PermissionManager pm = new PermissionManager();
+        boolean allowPM = pm.checkPermissionForReadExtertalStorage(this);
+        if (!allowPM){
+            pm.requestPermissionForReadExtertalStorage(this);
+        }
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="35dp"
+    >
+    <TextView
+        android:id="@+id/tv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Take a Picture"
+        android:layout_margin="15dp"
+        android:textSize="18dp"
+        android:fontFamily="serif"/>
+    <TextView
+        android:id="@+id/tv_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select From Gallery"
+        android:layout_margin="15dp"
+        android:textSize="18dp"
+        android:fontFamily="serif"
+        />
+
+</LinearLayout>
