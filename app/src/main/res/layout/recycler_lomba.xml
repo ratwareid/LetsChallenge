@@ -16,8 +16,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/CIV_lomba"
             android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_racing_flag"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_racing_flag" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,10 +28,12 @@
             <TextView
                 android:id="@+id/TV_judullomba"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Judul Lomba"
-                android:textSize="20dp"
-                android:textColor="@color/colorbottom"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif"
+                android:maxLines="1"
+                android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:layout_margin="3dp"/>
 
@@ -47,10 +49,11 @@
                 <TextView
                     android:id="@+id/TV_tanggallomba"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text=" 01/01/2019"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
+                    android:maxLines="1"
                     android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
@@ -68,10 +71,11 @@
                 <TextView
                     android:id="@+id/TV_lokasilomba"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text=" Gedung Balai Sarbini Jaktim"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
+                    android:maxLines="1"
                     android:layout_marginLeft="5dp"/>
 
             </LinearLayout>

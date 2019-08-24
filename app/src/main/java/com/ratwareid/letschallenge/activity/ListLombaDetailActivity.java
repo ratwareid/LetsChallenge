@@ -39,6 +39,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
     private Button btnSimpan,btnDaftar;
     private CircleImageView civImg;
     private ArrayList<String> lombadisimpan;
+    private TextView tvAnnounce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
         btnDaftar = findViewById(R.id.btn_daftar);
         btnDaftar.setOnClickListener(this);
         civImg = findViewById(R.id.CIV_lomba);
+        tvAnnounce = findViewById(R.id.TV_berhasildaftar);
     }
 
     public void loaddata(){
@@ -80,11 +82,23 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
         String key = getIntent().getStringExtra("key");
 
         database.child("list_lomba").child(key).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mlomba = dataSnapshot.getValue(Lomba.class);
                 mlomba.setKey(dataSnapshot.getKey());
                 placedata(mlomba);
+
+                if (mlomba.getPendaftar() != null) {
+                    if (mlomba.getPendaftar().contains(Constant.getLoginID())) {
+                        btnDaftar.setVisibility(View.GONE);
+                        btnDaftar.setEnabled(false);
+                        tvAnnounce.setText("Kamu Telah Terdaftar Pada Perlombaan Ini !");
+                        tvAnnounce.setVisibility(View.VISIBLE);
+                        tvAnnounce.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        tvAnnounce.setTextColor(R.color.yellow);
+                    }
+                }
                 loading.dismiss();
             }
 
@@ -111,7 +125,6 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                         btnSimpan.setVisibility(View.GONE);
                     }
                 }
-
                 loading.dismiss();
             }
 
@@ -160,17 +173,39 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                     false);
 
             lombadisimpan.add(mlomba.getKey());
-            this.simpanData(database,lombadisimpan,"lomba_disimpan",
+            this.simpanData(database,mlomba.getPendaftar(),"lomba_disimpan",
                     this,loading);
         }
         if (view.equals(btnDaftar)){
-
+            loading = ProgressDialog.show(ListLombaDetailActivity.this,
+                    null,
+                    "Menyimpan data...",
+                    true,
+                    false);
+            if (mlomba.getPendaftar() == null) mlomba.setPendaftar(new ArrayList<String>());
+            mlomba.getPendaftar().add(Constant.getLoginID());
+            this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,loading);
         }
     }
 
     public void simpanData(DatabaseReference database, ArrayList listid, String childDB,
                                   final Activity activity, final ProgressDialog loading) {
-        database.child(childDB).child(Constant.getLoginID())
+        database.child(childDB).child("lomba_disimpan")
+                .setValue(listid)
+                .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        loading.dismiss();
+                        Toast.makeText(activity.getApplicationContext(),
+                                "Data Berhasil ditambahkan",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void daftarLomba(DatabaseReference database, ArrayList listid,String idlomba, final Activity activity, final ProgressDialog loading) {
+        database.child("list_lomba").child(idlomba).child("pendaftar")
                 .setValue(listid)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override

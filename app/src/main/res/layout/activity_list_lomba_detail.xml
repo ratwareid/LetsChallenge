@@ -38,7 +38,7 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     app:civ_border_color="@color/black"
-                    app:civ_border_width="2dp"
+                    app:civ_border_width="1dp"
                     android:src="@drawable/sample_profile"/>
 
                 <LinearLayout
@@ -123,7 +123,7 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/header_lomba"
                 android:layout_marginTop="30dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="3dp"
                 android:id="@+id/deskripsi">
 
                 <TextView
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deskripsi"
-                android:layout_marginTop="10dp"
+
                 app:cardCornerRadius="3dp"
                 android:paddingVertical="5dp">
                 <LinearLayout
@@ -245,7 +245,7 @@
                         android:layout_height="wrap_content"
                         android:weightSum="5"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <TextView
                             android:paddingHorizontal="10dp"
@@ -269,33 +269,47 @@
 
 
             <LinearLayout
+                android:id="@+id/groupbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_below="@id/detaillomba"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="30dp">
+                android:layout_marginTop="30dp">
 
                 <Button
                     android:id="@+id/btn_simpan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Simpan"
-                    android:background="@color/yellow"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
+                    app:backgroundTint="@color/yellow"
+                    app:strokeColor="@color/yellow"
                     android:layout_margin="5dp"
                     />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_daftar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daftar"
-                    android:background="@color/birutua"
-                    android:textColor="@android:color/white"
+                    android:text="DAFTAR"
+                    android:textColor="@android:color/black"
+                    app:backgroundTint="@android:color/white"
+                    app:strokeColor="@android:color/white"
                     android:layout_margin="5dp"/>
 
             </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/TV_berhasildaftar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/yellow"
+                android:layout_below="@id/groupbtn"
+                android:visibility="invisible" />
 
 
         </RelativeLayout>

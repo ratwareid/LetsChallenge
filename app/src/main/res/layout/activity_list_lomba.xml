@@ -21,7 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:textColor="@color/black"
+            android:focusableInTouchMode="true"
+            android:hint="Cari..."/>
 
     <ScrollView
         android:layout_width="match_parent"
