@@ -173,7 +173,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                     false);
 
             lombadisimpan.add(mlomba.getKey());
-            this.simpanData(database,mlomba.getPendaftar(),"lomba_disimpan",
+            this.simpanData(database,lombadisimpan,"lomba_disimpan",
                     this,loading);
         }
         if (view.equals(btnDaftar)){
@@ -190,7 +190,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
 
     public void simpanData(DatabaseReference database, ArrayList listid, String childDB,
                                   final Activity activity, final ProgressDialog loading) {
-        database.child(childDB).child("lomba_disimpan")
+        database.child(childDB).child(Constant.getLoginID())
                 .setValue(listid)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
