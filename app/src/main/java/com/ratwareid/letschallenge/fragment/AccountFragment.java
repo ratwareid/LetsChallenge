@@ -3,6 +3,7 @@ package com.ratwareid.letschallenge.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -13,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,17 +34,24 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.ImageUtil;
 import com.ratwareid.letschallenge.R;
+import com.ratwareid.letschallenge.activity.EditProfileActivity;
 import com.ratwareid.letschallenge.activity.HomeActivity;
+import com.ratwareid.letschallenge.activity.ListLombaActivity;
 import com.ratwareid.letschallenge.activity.ListLombaDetailActivity;
 import com.ratwareid.letschallenge.activity.LoginActivity;
 import com.ratwareid.letschallenge.activity.TambahJenis;
 import com.ratwareid.letschallenge.adapter.JenisAdapter;
 import com.ratwareid.letschallenge.model.Jenis;
+import com.ratwareid.letschallenge.model.Lomba;
+import com.ratwareid.letschallenge.model.Userdata;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -55,18 +64,20 @@ import static android.app.Activity.RESULT_OK;
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private MaterialButton btnTJ;
-    private Button btnLogout;
+    private Button btnLogout,btnEditProfile;
     private EditText etEmail;
-    private TextView tvBio;
+    private TextView tvBio,tvNoTlp,tvNama,tvAlamat;
     private FirebaseAuth fAuth;
-    private CircleImageView CIVchangeimage;
+    private CircleImageView CIVchangeimage,CIVprofile;
     private Uri imageUri;
     private static final int PICK_IMAGE = 1;
     private static final int PICK_Camera_IMAGE = 2;
     private Bitmap bitmap;
     private ProgressDialog loading;
+    private ProgressDialog loadingupload;
     private DatabaseReference database;
     private HomeActivity activity;
+    private Userdata userdata;
 
     @Nullable
     @Override
@@ -85,6 +96,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         btnTJ.setOnClickListener(this);
         btnLogout = view.findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(this);
+        btnEditProfile = view.findViewById(R.id.btn_edit_profile);
+        btnEditProfile.setOnClickListener(this);
 
         if (Constant.getLoginemail().equalsIgnoreCase(Constant.rootEmail)){
             btnTJ.setVisibility(View.VISIBLE);
@@ -97,6 +110,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         fAuth = FirebaseAuth.getInstance();
         CIVchangeimage = view.findViewById(R.id.CIV_btnadd);
         CIVchangeimage.setOnClickListener(this);
+
+        tvNama = view.findViewById(R.id.tv_nama);
+        tvBio = view.findViewById(R.id.tv_bio);
+        tvNoTlp = view.findViewById(R.id.tv_notlp);
+        tvAlamat = view.findViewById(R.id.tv_alamat);
+        CIVprofile = view.findViewById(R.id.CIV_profile);
     }
 
     @Override
@@ -119,6 +138,60 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         if (view.equals(CIVchangeimage)){
             showDialog();
         }
+
+        if (view.equals(btnEditProfile)){
+            ubahProfile();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loaddata();
+    }
+
+    public void loaddata(){
+        loading = ProgressDialog.show(activity,
+                null,
+                "Please wait...",
+                true,
+                false);
+
+        database.child("userdata").child(Constant.getLoginID()).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userdata = dataSnapshot.getValue(Userdata.class);
+                placedata(userdata);
+                loading.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
+                loading.dismiss();
+            }
+        });
+    }
+
+    public void placedata(Userdata userdata){
+        if (userdata != null){
+
+            String imgdecoded = userdata.getPhoto();
+            byte[] decodedString = Base64.decode(imgdecoded, Base64.DEFAULT);
+            CIVprofile.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+
+            tvNama.setText(userdata.getNama());
+            tvBio.setText(userdata.getBio());
+            tvNoTlp.setText(userdata.getNo_tlp());
+            tvAlamat.setText(userdata.getAlamat());
+        }
+    }
+
+    public void ubahProfile(){
+        Intent myIntent = new Intent(activity, EditProfileActivity.class);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity);
+        activity.startActivity(myIntent,options.toBundle());
     }
 
     public void showDialog(){
@@ -282,7 +355,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     public void uploadphoto(String base64){
 
-        loading = ProgressDialog.show(activity,
+        loadingupload = ProgressDialog.show(activity,
                 null,
                 "Mengunggah Photo...",
                 true,
@@ -293,11 +366,11 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
-                        loading.dismiss();
                         Toast.makeText(activity.getApplicationContext(),
                                 "Berhasil Mengunggah Photo",
                                 Toast.LENGTH_SHORT).show();
+
+                        loadingupload.dismiss();
                     }
                 });
     }

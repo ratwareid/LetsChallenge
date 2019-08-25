@@ -19,8 +19,7 @@
     <ScrollView
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -277,7 +276,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_simpan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -285,7 +284,6 @@
                     android:textColor="@android:color/black"
                     app:backgroundTint="@color/yellow"
                     app:strokeColor="@color/yellow"
-                    android:layout_margin="5dp"
                     />
 
                 <com.google.android.material.button.MaterialButton
@@ -295,10 +293,20 @@
                     android:text="DAFTAR"
                     android:textColor="@android:color/black"
                     app:backgroundTint="@android:color/white"
-                    app:strokeColor="@android:color/white"
-                    android:layout_margin="5dp"/>
+                    app:strokeColor="@android:color/white" />
 
             </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_qrcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:enabled="false"
+                android:visibility="gone"
+                android:text="Tampilkan QRCode"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/groupbtn"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_berhasildaftar"
@@ -308,7 +316,8 @@
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/yellow"
-                android:layout_below="@id/groupbtn"
+                android:layout_below="@id/btn_qrcode"
+                android:layout_marginTop="20dp"
                 android:visibility="invisible" />
 
 

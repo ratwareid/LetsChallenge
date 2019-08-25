@@ -119,9 +119,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void checkpermission(){
 
         PermissionManager pm = new PermissionManager();
-        boolean allowPM = pm.checkPermissionForReadExtertalStorage(this);
-        if (!allowPM){
+        boolean allowStorage = pm.checkPermissionForReadExtertalStorage(this);
+        boolean allowCamera = pm.checkPermissionForCamera(this);
+        if (!allowStorage){
             pm.requestPermissionForReadExtertalStorage(this);
+        }
+        if (!allowCamera){
+            pm.requestPermissionForCamera(this);
         }
     }
 }

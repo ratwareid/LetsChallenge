@@ -3,6 +3,13 @@ package com.ratwareid.letschallenge;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+
 import java.io.ByteArrayOutputStream;
 
 public class ImageUtil
@@ -25,4 +32,18 @@ public class ImageUtil
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
 
+
+    public static Bitmap generateQRCODE(String code){
+        Bitmap bitmap = null;
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(code, BarcodeFormat.QR_CODE,200,200);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            bitmap = barcodeEncoder.createBitmap(bitMatrix);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
 }

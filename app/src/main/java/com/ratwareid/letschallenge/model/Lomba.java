@@ -1,18 +1,18 @@
 package com.ratwareid.letschallenge.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Lomba {
     private String alamat_lomba,deskripsi_lomba,nama_lomba,penyelenggara,tanggal_lomba,jenis_lomba;
     private String logo_lomba,jumlah_peserta,nama_jenis;
     private Long biaya_pendaftaran,total_hadiah;
-    private ArrayList<String> pendaftar;
+    private HashMap<String,String> pendaftar;
     private String key;
 
-    public Lomba(){ }
+    public Lomba(){}
 
     public Lomba(String alamat_lomba,String deskripsi_lomba,String nama_lomba,String penyelenggara,String tanggal_lomba,String jenis_lomba,
-                    Long biaya_pendaftaran,String jumlah_peserta,Long total_hadiah,String logo_lomba,String nama_jenis, ArrayList<String> pendaftar){
+                    Long biaya_pendaftaran,String jumlah_peserta,Long total_hadiah,String logo_lomba,String nama_jenis, HashMap<String,String> pendaftar){
         this.alamat_lomba = alamat_lomba;
         this.deskripsi_lomba = deskripsi_lomba;
         this.nama_lomba = nama_lomba;
@@ -24,9 +24,9 @@ public class Lomba {
         this.jumlah_peserta = jumlah_peserta;
         this.total_hadiah = total_hadiah;
         this.nama_jenis = nama_jenis;
-        this.pendaftar =  new ArrayList<String>();
+        this.pendaftar =  new HashMap<>();
         if (pendaftar != null && pendaftar.size() > 0){
-            this.pendaftar.addAll(pendaftar);
+            this.pendaftar.putAll(pendaftar);
         }
     }
 
@@ -126,11 +126,11 @@ public class Lomba {
         this.nama_jenis = nama_jenis;
     }
 
-    public ArrayList<String> getPendaftar() {
+    public HashMap<String, String> getPendaftar() {
         return pendaftar;
     }
 
-    public void setPendaftar(ArrayList<String> pendaftar) {
+    public void setPendaftar(HashMap<String, String> pendaftar) {
         this.pendaftar = pendaftar;
     }
 }

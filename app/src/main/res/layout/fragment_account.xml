@@ -6,6 +6,17 @@
     xmlns:cardview="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/your_name"
+        android:textSize="16dp"
+        android:textStyle="bold|italic"
+        android:textColor="@color/yellow"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp" />
+
     <RelativeLayout
         android:id="@+id/groupphoto"
         android:layout_width="wrap_content"
@@ -48,15 +59,38 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:hint="\@your_uemail"
+        android:paddingHorizontal="10dp"
         android:textColor="@color/black"
         android:textStyle="italic|bold"
         android:enabled="false"/>
+
+    <TextView
+        android:id="@+id/tv_notlp"
+        android:layout_below="@id/et_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Nomor telephone"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textStyle="italic|bold"/>
+
+    <TextView
+        android:id="@+id/tv_alamat"
+        android:layout_below="@id/tv_notlp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingHorizontal="10dp"
+        android:hint="Alamat Lengkap Anda"
+        android:textColor="@color/black"
+        android:textStyle="italic|bold"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/CV_bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_email"
+        android:layout_below="@id/tv_alamat"
         app:cardCornerRadius="5dp"
         android:layout_marginTop="5dp">
 
@@ -64,8 +98,8 @@
             android:id="@+id/tv_bio"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:text="Biography is Here"
-            android:padding="10dp"/>
+            android:text="Tulis Biografi anda disini ..."
+            android:padding="20dp"/>
 
     </androidx.cardview.widget.CardView>
 

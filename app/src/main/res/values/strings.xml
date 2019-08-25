@@ -11,7 +11,8 @@
     <string name="txtbtn_submit">KIRIM</string>
 
     <!--//Menu Bottom Navigation-->
-    <string name="home">Home</string>
-    <string name="favorite">Favorite</string>
-    <string name="account">Account</string>
+    <string name="home">Beranda</string>
+    <string name="favorite">Favorit</string>
+    <string name="account">Profil</string>
+    <string name="your_name"><u>Nama Anda</u>.</string>
 </resources>

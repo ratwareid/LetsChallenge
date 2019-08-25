@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_home);
         firebaseAuth = FirebaseAuth.getInstance();
         initialize();
+        checkpermission();
     }
 
     @Override
@@ -78,5 +79,18 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 break;
         }
         return loadFragment(fragment);
+    }
+
+    public void checkpermission(){
+
+        PermissionManager pm = new PermissionManager();
+        boolean allowStorage = pm.checkPermissionForReadExtertalStorage(this);
+        boolean allowCamera = pm.checkPermissionForCamera(this);
+        if (!allowStorage){
+            pm.requestPermissionForReadExtertalStorage(this);
+        }
+        if (!allowCamera){
+            pm.requestPermissionForCamera(this);
+        }
     }
 }

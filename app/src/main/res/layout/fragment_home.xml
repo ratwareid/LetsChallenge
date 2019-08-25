@@ -36,7 +36,7 @@
                     android:id="@+id/title_sport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sport Competition"
+                    android:text="Kompetisi Olahraga"
                     android:textStyle="bold"
                     android:layout_margin="10dp"/>
 

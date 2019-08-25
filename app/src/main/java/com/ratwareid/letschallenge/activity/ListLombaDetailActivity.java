@@ -5,12 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ratwareid.letschallenge.Constant;
+import com.ratwareid.letschallenge.IDFactory;
+import com.ratwareid.letschallenge.ImageUtil;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
 import com.ratwareid.letschallenge.model.Lomba;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,7 +43,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
     private DatabaseReference database;
     private Lomba mlomba;
     private TextView tvNama,tvTanggal,tvTempat,tvDeskripsi,tvPenyelenggara,tvJenis,tvJumlah,tvBiaya,tvTotalHadiah;
-    private Button btnSimpan,btnDaftar;
+    private Button btnSimpan,btnDaftar,btnQRCode;
     private CircleImageView civImg;
     private ArrayList<String> lombadisimpan;
     private TextView tvAnnounce;
@@ -67,6 +74,8 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
         btnSimpan.setOnClickListener(this);
         btnDaftar = findViewById(R.id.btn_daftar);
         btnDaftar.setOnClickListener(this);
+        btnQRCode = findViewById(R.id.btn_qrcode);
+        btnQRCode.setOnClickListener(this);
         civImg = findViewById(R.id.CIV_lomba);
         tvAnnounce = findViewById(R.id.TV_berhasildaftar);
     }
@@ -90,9 +99,11 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                 placedata(mlomba);
 
                 if (mlomba.getPendaftar() != null) {
-                    if (mlomba.getPendaftar().contains(Constant.getLoginID())) {
+                    if (mlomba.getPendaftar().containsKey(Constant.getLoginID())) {
                         btnDaftar.setVisibility(View.GONE);
                         btnDaftar.setEnabled(false);
+                        btnQRCode.setEnabled(true);
+                        btnQRCode.setVisibility(View.VISIBLE);
                         tvAnnounce.setText("Kamu Telah Terdaftar Pada Perlombaan Ini !");
                         tvAnnounce.setVisibility(View.VISIBLE);
                         tvAnnounce.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -182,10 +193,18 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                     "Menyimpan data...",
                     true,
                     false);
-            if (mlomba.getPendaftar() == null) mlomba.setPendaftar(new ArrayList<String>());
-            mlomba.getPendaftar().add(Constant.getLoginID());
-            this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,loading);
+            if (mlomba.getPendaftar() == null) mlomba.setPendaftar(new HashMap<String, String>());
+            try {
+                mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(mlomba.getJenis_lomba()));
+                this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,loading);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
+        if (view.equals(btnQRCode)){
+            showQRCode();
+        }
+
     }
 
     public void simpanData(DatabaseReference database, ArrayList listid, String childDB,
@@ -204,9 +223,9 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                 });
     }
 
-    public void daftarLomba(DatabaseReference database, ArrayList listid,String idlomba, final Activity activity, final ProgressDialog loading) {
+    public void daftarLomba(DatabaseReference database,HashMap <String,String> listpendaftar,String idlomba, final Activity activity, final ProgressDialog loading) {
         database.child("list_lomba").child(idlomba).child("pendaftar")
-                .setValue(listid)
+                .setValue(listpendaftar)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -217,6 +236,18 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    public void showQRCode(){
+        final Dialog dialogPicture = new Dialog(this);
+        dialogPicture.setCancelable(true);
+
+        View view  = this.getLayoutInflater().inflate(R.layout.dialog_qrcode, null);
+        ImageView IVqrcode = view.findViewById(R.id.QRCode);
+        Bitmap bmp = ImageUtil.generateQRCODE(mlomba.getPendaftar().get(Constant.getLoginID()));
+        IVqrcode.setImageBitmap(bmp);
+        dialogPicture.setContentView(view);
+        dialogPicture.show();
     }
 
     public Lomba getMlomba() {
