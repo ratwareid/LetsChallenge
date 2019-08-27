@@ -13,4 +13,8 @@
     <color name="yellow">#fcba03</color>
     <color name="birutua">#0703fc</color>
     <color name="abumuda">#edf2f5</color>
+    <color name="cardblue">#4287f5</color>
+    <color name="cardred">#f56642</color>
+    <color name="standarttext">#737578</color>
+
 </resources>

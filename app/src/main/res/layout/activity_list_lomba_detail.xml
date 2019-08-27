@@ -308,6 +308,17 @@
                 android:textColor="@android:color/black"
                 android:layout_below="@id/groupbtn"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_showpendaftar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:enabled="false"
+                android:visibility="gone"
+                android:text="Tampilkan Pendaftar"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/btn_qrcode"/>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/TV_berhasildaftar"
                 android:layout_width="match_parent"

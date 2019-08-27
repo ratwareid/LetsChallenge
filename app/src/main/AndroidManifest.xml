@@ -33,6 +33,31 @@
                 android:value=".activity.HomeActivity" />
         </activity>
         <activity
+            android:name=".activity.ListLombaTerdaftarActivity"
+            android:label="List Perlombaan Terdaftar"
+            android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ListLombaDibuatActivity"
+            android:label="List Perlombaan Terbuat"
+            android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".activity.DokumenPerlombaanActivity"
+            android:label="Buat Perlombaan Baru"
+            android:parentActivityName=".activity.ListLombaDibuatActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ListLombaDibuatActivity" />
+        </activity>
+        <activity
             android:name=".activity.ListLombaDetailActivity"
             android:label="Detail Perlombaan"
             android:parentActivityName=".activity.ListLombaActivity">

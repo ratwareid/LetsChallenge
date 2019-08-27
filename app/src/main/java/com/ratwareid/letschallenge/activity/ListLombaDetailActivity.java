@@ -43,7 +43,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
     private DatabaseReference database;
     private Lomba mlomba;
     private TextView tvNama,tvTanggal,tvTempat,tvDeskripsi,tvPenyelenggara,tvJenis,tvJumlah,tvBiaya,tvTotalHadiah;
-    private Button btnSimpan,btnDaftar,btnQRCode;
+    private Button btnSimpan,btnDaftar,btnQRCode,btnListPendaftar;
     private CircleImageView civImg;
     private ArrayList<String> lombadisimpan;
     private TextView tvAnnounce;
@@ -78,6 +78,8 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
         btnQRCode.setOnClickListener(this);
         civImg = findViewById(R.id.CIV_lomba);
         tvAnnounce = findViewById(R.id.TV_berhasildaftar);
+        btnListPendaftar = findViewById(R.id.btn_showpendaftar);
+        btnListPendaftar.setOnClickListener(this);
     }
 
     public void loaddata(){
@@ -98,16 +100,26 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                 mlomba.setKey(dataSnapshot.getKey());
                 placedata(mlomba);
 
-                if (mlomba.getPendaftar() != null) {
-                    if (mlomba.getPendaftar().containsKey(Constant.getLoginID())) {
-                        btnDaftar.setVisibility(View.GONE);
-                        btnDaftar.setEnabled(false);
-                        btnQRCode.setEnabled(true);
-                        btnQRCode.setVisibility(View.VISIBLE);
-                        tvAnnounce.setText("Kamu Telah Terdaftar Pada Perlombaan Ini !");
-                        tvAnnounce.setVisibility(View.VISIBLE);
-                        tvAnnounce.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        tvAnnounce.setTextColor(R.color.yellow);
+                if (mlomba.getPenyelenggara().equals(Constant.getLoginemail())){
+                    btnDaftar.setEnabled(false);
+                    btnSimpan.setEnabled(false);
+                    btnDaftar.setVisibility(View.GONE);
+                    btnSimpan.setVisibility(View.GONE);
+                    btnListPendaftar.setEnabled(true);
+                    btnListPendaftar.setVisibility(View.VISIBLE);
+                }else {
+
+                    if (mlomba.getPendaftar() != null) {
+                        if (mlomba.getPendaftar().containsKey(Constant.getLoginID())) {
+                            btnDaftar.setVisibility(View.GONE);
+                            btnDaftar.setEnabled(false);
+                            btnQRCode.setEnabled(true);
+                            btnQRCode.setVisibility(View.VISIBLE);
+                            tvAnnounce.setText("Kamu Telah Terdaftar Pada Perlombaan Ini !");
+                            tvAnnounce.setVisibility(View.VISIBLE);
+                            tvAnnounce.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            tvAnnounce.setTextColor(R.color.yellow);
+                        }
                     }
                 }
                 loading.dismiss();
@@ -195,7 +207,9 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                     false);
             if (mlomba.getPendaftar() == null) mlomba.setPendaftar(new HashMap<String, String>());
             try {
-                mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(mlomba.getJenis_lomba()));
+
+                String combinecode = mlomba.getJenis_lomba().concat(mlomba.getKey()).concat(Constant.getLoginID());
+                mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(combinecode));
                 this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,loading);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();

@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +41,7 @@ public class FavoriteFragment extends Fragment {
     private ArrayList<String> listdisimpan;
     private ArrayList<Lomba> listlomba;
     private LombaAdapter adapter;
+    private Toolbar toolbar;
 
 
     @Nullable
@@ -52,10 +55,11 @@ public class FavoriteFragment extends Fragment {
 
     public void initialize(View view){
         database = FirebaseDatabase.getInstance().getReference();
-        recyclerView = view.findViewById(R.id.RV_favorite);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         activity = (HomeActivity) this.getActivity();
         context = this.getContext();
+        recyclerView = view.findViewById(R.id.RV_favorite);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.addItemDecoration(new DividerItemDecoration(activity.getApplicationContext(), DividerItemDecoration.VERTICAL));
     }
 
     public void loaddata(){

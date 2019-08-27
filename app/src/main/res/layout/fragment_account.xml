@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:cardview="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_nama"
@@ -44,7 +47,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/CIV_profile"
-            android:src="@drawable/sample_profile"
+            android:src="@color/abumuda"
             app:civ_border_color="@color/birutua"
             app:civ_border_width="1dp"
             app:civ_circle_background_color="@android:color/white"
@@ -91,7 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_alamat"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="2dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="5dp">
 
         <TextView
@@ -114,6 +118,83 @@
         android:text="Ubah Profile"
         android:textColor="@android:color/black"/>
 
+    <LinearLayout
+        android:id="@+id/groupList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/btn_edit_profile"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:weightSum="2">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_blue"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/cardblue"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_idea"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lomba Dibuat"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="14dp"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_red"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/cardred"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_clipboard"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lomba Didaftarkan"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="14dp"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_TJ"
         android:layout_width="match_parent"
@@ -123,7 +204,7 @@
         android:backgroundTint="@android:color/white"
         android:textColor="@android:color/black"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_edit_profile"
+        android:layout_below="@id/groupList"
         android:enabled="false"
         android:layout_marginHorizontal="10dp"
         android:visibility="gone"/>
@@ -134,6 +215,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="100dp"
         android:layout_below="@id/btn_TJ"
         app:strokeColor="@android:color/white"
         android:backgroundTint="@android:color/white"
@@ -142,3 +224,4 @@
 
 
 </RelativeLayout>
+</ScrollView>

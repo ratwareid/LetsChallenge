@@ -13,6 +13,7 @@
         android:minHeight="?attr/actionBarSize"
         android:background="@color/colorbottom"
         app:titleTextColor="@android:color/white"
+        card_view:subtitleTextColor="@android:color/white"
         card_view:title="Perlombaan Tersimpan"
         />
 
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true"
-        android:padding="10dp">
+        android:layout_marginBottom="80dp">
     </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

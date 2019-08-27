@@ -1,19 +1,19 @@
 package com.ratwareid.letschallenge.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,29 +21,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
-import com.ratwareid.letschallenge.adapter.JenisAdapter;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
-import com.ratwareid.letschallenge.model.Jenis;
 import com.ratwareid.letschallenge.model.Lomba;
 
 import java.util.ArrayList;
 
-public class ListLombaActivity extends AppCompatActivity {
+public class ListLombaDibuatActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
     private DatabaseReference database;
     private RecyclerView recyclerView;
     private LombaAdapter adapter;
     private Context context;
-    private ListLombaActivity activity;
+    private ListLombaDibuatActivity activity;
     private ArrayList<Lomba> listlomba;
     private String jeniskode;
     private ProgressDialog loading;
+    private FloatingActionButton fabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_lomba);
+        setContentView(R.layout.activity_list_lomba_dibuat);
 
         initialize();
     }
@@ -58,17 +57,19 @@ public class ListLombaActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView = findViewById(R.id.RV_listlomba);
         context = getApplicationContext();
-        activity = ListLombaActivity.this;
+        activity = ListLombaDibuatActivity.this;
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
        /* jeniskode = getIntent().getStringExtra("jenis_kode");*/
         jeniskode = Constant.getTempJenis();
+        fabAdd = findViewById(R.id.fab_add);
+        fabAdd.setOnClickListener(this);
     }
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(ListLombaActivity.this,
+        loading = ProgressDialog.show(ListLombaDibuatActivity.this,
                 null,
                 "Please wait...",
                 true,
@@ -81,11 +82,8 @@ public class ListLombaActivity extends AppCompatActivity {
                 listlomba = new ArrayList<>();
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     Lomba mlomba = noteDataSnapshot.getValue(Lomba.class);
-                    if (jeniskode.equalsIgnoreCase("ALL")) {
-                        mlomba.setKey(noteDataSnapshot.getKey());
-                        listlomba.add(mlomba);
-                    }else{
-                        if (mlomba.getJenis_lomba().equalsIgnoreCase(jeniskode)) {
+                    if (mlomba.getPenyelenggara() != null) {
+                        if (mlomba.getPenyelenggara().equals(Constant.getLoginemail())) {
                             mlomba.setKey(noteDataSnapshot.getKey());
                             listlomba.add(mlomba);
                         }
@@ -110,6 +108,15 @@ public class ListLombaActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.loaddata();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.equals(fabAdd)){
+            Intent myIntent = new Intent(activity, DokumenPerlombaanActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity);
+            activity.startActivity(myIntent,options.toBundle());
+        }
     }
 }
 

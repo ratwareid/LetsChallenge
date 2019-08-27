@@ -26,12 +26,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +48,8 @@ import com.ratwareid.letschallenge.activity.EditProfileActivity;
 import com.ratwareid.letschallenge.activity.HomeActivity;
 import com.ratwareid.letschallenge.activity.ListLombaActivity;
 import com.ratwareid.letschallenge.activity.ListLombaDetailActivity;
+import com.ratwareid.letschallenge.activity.ListLombaDibuatActivity;
+import com.ratwareid.letschallenge.activity.ListLombaTerdaftarActivity;
 import com.ratwareid.letschallenge.activity.LoginActivity;
 import com.ratwareid.letschallenge.activity.TambahJenis;
 import com.ratwareid.letschallenge.adapter.JenisAdapter;
@@ -78,6 +82,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private DatabaseReference database;
     private HomeActivity activity;
     private Userdata userdata;
+    private MaterialCardView cardred,cardblue;
 
     @Nullable
     @Override
@@ -116,6 +121,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         tvNoTlp = view.findViewById(R.id.tv_notlp);
         tvAlamat = view.findViewById(R.id.tv_alamat);
         CIVprofile = view.findViewById(R.id.CIV_profile);
+        cardred = view.findViewById(R.id.card_red);
+        cardred.setOnClickListener(this);
+        cardblue = view.findViewById(R.id.card_blue);
+        cardblue.setOnClickListener(this);
     }
 
     @Override
@@ -142,6 +151,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         if (view.equals(btnEditProfile)){
             ubahProfile();
         }
+        if (view.equals(cardred)){
+            lihatLombaTerdaftar();
+        }
+        if (view.equals(cardblue)){
+            lihatLombaDibuat();
+        }
+
     }
 
     @Override
@@ -176,15 +192,23 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     public void placedata(Userdata userdata){
         if (userdata != null){
-
-            String imgdecoded = userdata.getPhoto();
-            byte[] decodedString = Base64.decode(imgdecoded, Base64.DEFAULT);
-            CIVprofile.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-
-            tvNama.setText(userdata.getNama());
-            tvBio.setText(userdata.getBio());
-            tvNoTlp.setText(userdata.getNo_tlp());
-            tvAlamat.setText(userdata.getAlamat());
+            if (userdata.getPhoto() != null) {
+                String imgdecoded = userdata.getPhoto();
+                byte[] decodedString = Base64.decode(imgdecoded, Base64.DEFAULT);
+                CIVprofile.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+            }
+            if (userdata.getNama() != null) {
+                tvNama.setText(userdata.getNama());
+            }
+            if (userdata.getBio() != null){
+                tvBio.setText(userdata.getBio());
+            }
+            if (userdata.getNo_tlp() != null) {
+                tvNoTlp.setText(userdata.getNo_tlp());
+            }
+            if (userdata.getAlamat() != null) {
+                tvAlamat.setText(userdata.getAlamat());
+            }
         }
     }
 
@@ -326,7 +350,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         BitmapFactory.decodeFile(filePath, o);
 
         // The new size we want to scale to
-        final int REQUIRED_SIZE = 128;
+        final int REQUIRED_SIZE = 256;
 
         // Find the correct scale value. It should be the power of 2.
         int width_tmp = o.outWidth, height_tmp = o.outHeight;
@@ -373,6 +397,18 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                         loadingupload.dismiss();
                     }
                 });
+    }
+
+    public void lihatLombaTerdaftar(){
+        Intent myIntent = new Intent(activity, ListLombaTerdaftarActivity.class);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity);
+        activity.startActivity(myIntent,options.toBundle());
+    }
+
+    public void lihatLombaDibuat(){
+        Intent myIntent = new Intent(activity, ListLombaDibuatActivity.class);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity);
+        activity.startActivity(myIntent,options.toBundle());
     }
 
 }
