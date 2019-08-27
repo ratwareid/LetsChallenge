@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +40,7 @@ public class ListLombaActivity extends AppCompatActivity {
     private ListLombaActivity activity;
     private ArrayList<Lomba> listlomba;
     private String jeniskode;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +66,12 @@ public class ListLombaActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
        /* jeniskode = getIntent().getStringExtra("jenis_kode");*/
         jeniskode = Constant.getTempJenis();
+        progressBar = findViewById(R.id.progressbar);
     }
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(ListLombaActivity.this,
-                null,
-                "Please wait...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("list_lomba").addValueEventListener(new ValueEventListener() {
             @Override
@@ -94,12 +93,12 @@ public class ListLombaActivity extends AppCompatActivity {
 
                 adapter = new LombaAdapter(context, listlomba,activity );
                 recyclerView.setAdapter(adapter);
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });

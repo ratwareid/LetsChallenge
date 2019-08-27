@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,7 +37,7 @@ public class ListLombaDibuatActivity extends AppCompatActivity implements View.O
     private ListLombaDibuatActivity activity;
     private ArrayList<Lomba> listlomba;
     private String jeniskode;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
     private FloatingActionButton fabAdd;
 
     @Override
@@ -65,15 +66,13 @@ public class ListLombaDibuatActivity extends AppCompatActivity implements View.O
         jeniskode = Constant.getTempJenis();
         fabAdd = findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(this);
+
+        progressBar = findViewById(R.id.progressbar);
     }
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(ListLombaDibuatActivity.this,
-                null,
-                "Please wait...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("list_lomba").addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,12 +91,12 @@ public class ListLombaDibuatActivity extends AppCompatActivity implements View.O
 
                 adapter = new LombaAdapter(context, listlomba,activity );
                 recyclerView.setAdapter(adapter);
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });

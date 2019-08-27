@@ -13,7 +13,7 @@ public class PermissionManager {
     static final Integer CAMERA_PERMISSION_REQUEST_CODE=0x4;
 
     public boolean checkPermissionForReadExtertalStorage(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             int result = activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
             return result == PackageManager.PERMISSION_GRANTED;
         }
@@ -21,7 +21,7 @@ public class PermissionManager {
     }
 
     public boolean checkPermissionForCamera(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             int result = activity.checkSelfPermission(Manifest.permission.CAMERA);
             return result == PackageManager.PERMISSION_GRANTED;
         }
@@ -35,7 +35,7 @@ public class PermissionManager {
 
     public void requestPermissionForCamera(Activity activity){
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},
-                READ_STORAGE_PERMISSION_REQUEST_CODE);
+                CAMERA_PERMISSION_REQUEST_CODE);
     }
 
 }

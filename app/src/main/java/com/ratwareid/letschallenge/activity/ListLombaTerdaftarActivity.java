@@ -3,6 +3,8 @@ package com.ratwareid.letschallenge.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,7 +34,7 @@ public class ListLombaTerdaftarActivity extends AppCompatActivity {
     private ListLombaTerdaftarActivity activity;
     private ArrayList<Lomba> listlomba;
     private String jeniskode;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +60,12 @@ public class ListLombaTerdaftarActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
        /* jeniskode = getIntent().getStringExtra("jenis_kode");*/
         jeniskode = Constant.getTempJenis();
+        progressBar = findViewById(R.id.progressbar);
     }
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(ListLombaTerdaftarActivity.this,
-                null,
-                "Please wait...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("list_lomba").addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,12 +84,12 @@ public class ListLombaTerdaftarActivity extends AppCompatActivity {
 
                 adapter = new LombaAdapter(context, listlomba,activity );
                 recyclerView.setAdapter(adapter);
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });

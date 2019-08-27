@@ -2,8 +2,10 @@ package com.ratwareid.letschallenge.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -18,6 +20,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,16 +39,20 @@ import com.ratwareid.letschallenge.IDFactory;
 import com.ratwareid.letschallenge.ImageUtil;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
+import com.ratwareid.letschallenge.fragment.DatePickerFragment;
 import com.ratwareid.letschallenge.model.Jenis;
 import com.ratwareid.letschallenge.model.Lomba;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DokumenPerlombaanActivity extends AppCompatActivity implements View.OnClickListener {
+public class DokumenPerlombaanActivity extends AppCompatActivity implements View.OnClickListener{
 
     private CircleImageView CIVprofile,CIVbtnadd;
     private TextInputEditText etJudul,etTanggal,etAlamat,etDeskripsi,etJmlPeserta,etBiaya,etTotalHadiah;
@@ -54,13 +62,15 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
     private ArrayList<String> listJenis;
     private HashMap<String,String> jenisHashMap;
     private DatabaseReference database;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
     private Toolbar toolbar;
     private Uri imageUri;
     private static final int PICK_IMAGE = 1;
     private static final int PICK_Camera_IMAGE = 2;
     private Bitmap bitmap;
     private Lomba lomba;
+    private DatePickerDialog datePickerDialog;
+    private SimpleDateFormat dateFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +102,8 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
         btnPengajuan = findViewById(R.id.btn_pengajuan);
         btnPengajuan.setOnClickListener(this);
 
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        progressBar = findViewById(R.id.progressbar);
         lomba = new Lomba();
     }
 
@@ -103,6 +115,24 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
         if (view.equals(btnPengajuan)){
             submitPerlombaan();
         }
+        if(view.equals(etTanggal)){
+            Calendar newCalendar = Calendar.getInstance();
+
+            /**
+             * Initiate DatePicker dialog
+             */
+            datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, monthOfYear, dayOfMonth);
+                    etTanggal.setText(dateFormatter.format(newDate.getTime()));
+                }
+
+            },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+        }
     }
 
     @Override
@@ -113,11 +143,7 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(DokumenPerlombaanActivity.this,
-                null,
-                "Mengambil data...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("jenis_lomba").addValueEventListener(new ValueEventListener() {
             @Override
@@ -135,12 +161,12 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
                 }
                 spinneradapter = new ArrayAdapter<>(getApplicationContext(),R.layout.custom_spinner, listJenis);
                 spnJenis.setAdapter(spinneradapter);
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });
@@ -260,7 +286,7 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
 
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = this.managedQuery(uri, projection, null, null, null);
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
             // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
@@ -310,22 +336,23 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
     }
 
     public void getInputedData(){
-        if (etJudul.getText() != null){
+        if (etJudul.getText() != null && !etJudul.getText().equals("")){
             lomba.setNama_lomba(etJudul.getText().toString());
         }else{
             etJudul.setError("Mohon Isi Judul Perlombaan");
         }
-        if (etTanggal.getText() != null){
+        if (etTanggal.getText() != null && !etTanggal.getText().equals("")){
             lomba.setTanggal_lomba(etTanggal.getText().toString());
         }else{
             etTanggal.setError("Mohon tentukan tanggal perlombaan");
         }
-        if (etAlamat.getText() != null){
+        if (etAlamat.getText() != null && !etAlamat.getText().equals("")){
             lomba.setAlamat_lomba(etAlamat.getText().toString());
         }else{
             etAlamat.setError("Mohon isi alamat perlombaan");
         }
-        if (etDeskripsi.getText() != null){
+        if (etDeskripsi.getText() != null && !etAlamat
+                .getText().equals("")){
             lomba.setDeskripsi_lomba(etDeskripsi.getText().toString());
         }else{
             etDeskripsi.setError("Mohon tulis penjelasan perlombaan");
@@ -369,11 +396,7 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
 
     public void submitPerlombaan(){
         try {
-            loading = ProgressDialog.show(DokumenPerlombaanActivity.this,
-                    null,
-                    "Mengirim data...",
-                    true,
-                    false);
+            progressBar.setVisibility(View.VISIBLE);
             this.getInputedData();
 
             if (lomba.getLogo_lomba() != null) {
@@ -386,7 +409,7 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
                             @Override
                             public void onSuccess(Void aVoid) {
 
-                                loading.dismiss();
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(getApplicationContext(),
                                         "Perlombaan Berhasil diTambahkan",
                                         Toast.LENGTH_SHORT).show();
@@ -394,8 +417,8 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
                             }
                         });
             }else{
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(), "Mohon masukkan gambar/logo perlombaan", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Mohon masukkan gambar perlombaan", Toast.LENGTH_SHORT).show();
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

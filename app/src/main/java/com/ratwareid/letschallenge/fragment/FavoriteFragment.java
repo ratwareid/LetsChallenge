@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class FavoriteFragment extends Fragment {
     private RecyclerView recyclerView;
     private HomeActivity activity;
     private Context context;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
     private ArrayList<String> listdisimpan;
     private ArrayList<Lomba> listlomba;
     private LombaAdapter adapter;
@@ -57,17 +58,14 @@ public class FavoriteFragment extends Fragment {
         database = FirebaseDatabase.getInstance().getReference();
         activity = (HomeActivity) this.getActivity();
         context = this.getContext();
+        progressBar = view.findViewById(R.id.progressbar);
         recyclerView = view.findViewById(R.id.RV_favorite);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new DividerItemDecoration(activity.getApplicationContext(), DividerItemDecoration.VERTICAL));
     }
 
     public void loaddata(){
-        loading = ProgressDialog.show(activity,
-                null,
-                "Please wait...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("lomba_disimpan").child(Constant.getLoginID()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,7 +80,7 @@ public class FavoriteFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });
@@ -104,12 +102,12 @@ public class FavoriteFragment extends Fragment {
 
                 adapter = new LombaAdapter(context, listlomba,activity );
                 recyclerView.setAdapter(adapter);
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });

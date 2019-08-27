@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment {
     private JenisAdapter adapter;
     private Context context;
     private HomeActivity activity;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
 
 
     @Nullable
@@ -61,16 +62,13 @@ public class HomeFragment extends Fragment {
 
         activity = (HomeActivity) this.getActivity();
         context = this.getContext();
+        progressBar = view.findViewById(R.id.progressbar);
     }
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(activity,
-                null,
-                "Please wait...",
-                true,
-                false);
 
+        progressBar.setVisibility(View.VISIBLE);
         database.child("jenis_lomba").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,12 +81,12 @@ public class HomeFragment extends Fragment {
 
                 adapter = new JenisAdapter(context, jenismodel,activity );
                 recyclerView.setAdapter(adapter);
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });

@@ -5,8 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -218,7 +220,11 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
         if (view.equals(btnQRCode)){
             showQRCode();
         }
-
+        if (view.equals(btnListPendaftar)){
+            Intent myIntent = new Intent(this, ListPendaftarActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
+            this.startActivity(myIntent,options.toBundle());
+        }
     }
 
     public void simpanData(DatabaseReference database, ArrayList listid, String childDB,

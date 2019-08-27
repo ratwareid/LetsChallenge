@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,8 +78,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private static final int PICK_IMAGE = 1;
     private static final int PICK_Camera_IMAGE = 2;
     private Bitmap bitmap;
-    private ProgressDialog loading;
-    private ProgressDialog loadingupload;
+    private ProgressBar progressBar,progressBarPhoto;
     private DatabaseReference database;
     private HomeActivity activity;
     private Userdata userdata;
@@ -96,6 +96,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
         database = FirebaseDatabase.getInstance().getReference();
         activity = (HomeActivity) this.getActivity();
+        progressBar = view.findViewById(R.id.progressbar);
+        progressBarPhoto = view.findViewById(R.id.progressbarphoto);
 
         btnTJ = view.findViewById(R.id.btn_TJ);
         btnTJ.setOnClickListener(this);
@@ -167,11 +169,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     public void loaddata(){
-        loading = ProgressDialog.show(activity,
-                null,
-                "Please wait...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("userdata").child(Constant.getLoginID()).addValueEventListener(new ValueEventListener() {
             @SuppressLint("ResourceAsColor")
@@ -179,13 +177,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userdata = dataSnapshot.getValue(Userdata.class);
                 placedata(userdata);
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-                loading.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -274,6 +272,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        progressBarPhoto.setVisibility(View.VISIBLE);
+
         Uri selectedImageUri = null;
         String filePath = null;
         switch (requestCode) {
@@ -290,8 +291,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 						selectedImageUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), mPic, getResources().getString(R.string.app_name), Long.toString(System.currentTimeMillis())));*/
                 } else if (resultCode == Activity.RESULT_CANCELED) {
                     Toast.makeText(getContext(), "Picture was not taken", Toast.LENGTH_SHORT).show();
+                    progressBarPhoto.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(getContext(), "Picture was not taken", Toast.LENGTH_SHORT).show();
+                    progressBarPhoto.setVisibility(View.GONE);
                 }
                 break;
         }
@@ -312,6 +315,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity().getApplicationContext(), "Unknown path",
                             Toast.LENGTH_LONG).show();
                     Log.e("Bitmap", "Unknown path");
+                    progressBarPhoto.setVisibility(View.GONE);
                 }
 
                 if (filePath != null) {
@@ -323,6 +327,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity().getApplicationContext(), "Internal error",
                         Toast.LENGTH_LONG).show();
                 Log.e(e.getClass().getName(), e.getMessage(), e);
+                progressBarPhoto.setVisibility(View.GONE);
             }
         }
 
@@ -330,7 +335,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getActivity().managedQuery(uri, projection, null, null, null);
+        Cursor cursor = getContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
             // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
@@ -379,12 +384,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     public void uploadphoto(String base64){
 
-        loadingupload = ProgressDialog.show(activity,
-                null,
-                "Mengunggah Photo...",
-                true,
-                false);
-
         database.child("userdata").child(Constant.getLoginID()).child("photo")
                 .setValue(base64)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
@@ -393,8 +392,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(),
                                 "Berhasil Mengunggah Photo",
                                 Toast.LENGTH_SHORT).show();
-
-                        loadingupload.dismiss();
+                        progressBarPhoto.setVisibility(View.GONE);
                     }
                 });
     }
