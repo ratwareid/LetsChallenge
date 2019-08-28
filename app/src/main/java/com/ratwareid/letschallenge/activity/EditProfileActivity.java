@@ -120,7 +120,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         data.setBio(etBio.getText().toString());
         data.setNo_tlp(etNoTlp.getText().toString());
         data.setPhoto(imgProfile);
-
+        data.setEmail(Constant.getLoginemail());
         return data;
     }
 

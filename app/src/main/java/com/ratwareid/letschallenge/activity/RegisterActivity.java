@@ -11,12 +11,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -123,7 +127,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         // rest of code
                     }
                 });
-
     }
 
     @Override

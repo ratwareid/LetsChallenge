@@ -56,7 +56,7 @@ public class PendaftarAdapter extends RecyclerView.Adapter<PendaftarAdapter.View
         void bindTo(Pendaftar pendaftar){
             //Populate the textviews with data
             emailpendaftar.setText(pendaftar.getEmail());
-            if (pendaftar.getfHadir().equals("Y")){
+            if (pendaftar.getfHadir() !=null && pendaftar.getfHadir().equals("Y")){
                 tandahadir.setVisibility(View.VISIBLE);
             }
         }

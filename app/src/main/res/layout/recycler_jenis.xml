@@ -7,7 +7,7 @@
     app:cardCornerRadius="5dp">
 
     <RelativeLayout
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="5dp">

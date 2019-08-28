@@ -1,5 +1,6 @@
 package com.ratwareid.letschallenge.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +36,7 @@ import com.ratwareid.letschallenge.ImageUtil;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
 import com.ratwareid.letschallenge.model.Lomba;
+import com.ratwareid.letschallenge.model.Userdata;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
     private TextView tvAnnounce;
     public static String key;
     private SharedPreferences prefs;
+    private Userdata datapendaftar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +184,21 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                 progressBar.setVisibility(View.GONE);
             }
         });
+
+        database.child("userdata").child(Constant.getLoginID()).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                datapendaftar = dataSnapshot.getValue(Userdata.class);
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -220,15 +238,22 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                     this,progressBar);
         }
         if (view.equals(btnDaftar)){
-            progressBar.setVisibility(View.VISIBLE);
-            if (mlomba.getPendaftar() == null) mlomba.setPendaftar(new HashMap<String, String>());
-            try {
+            if (datapendaftar != null) {
+                progressBar.setVisibility(View.VISIBLE);
+                if (mlomba.getPendaftar() == null)
+                    mlomba.setPendaftar(new HashMap<String, String>());
+                try {
 
-                String combinecode = mlomba.getJenis_lomba().concat(mlomba.getKey()).concat(Constant.getLoginID());
-                mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(combinecode));
-                this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,progressBar);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+                    String combinecode = mlomba.getJenis_lomba().concat(mlomba.getKey()).concat(Constant.getLoginID());
+                    mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(combinecode));
+                    this.daftarLomba(database, mlomba.getPendaftar(), mlomba.getKey(), this, progressBar);
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Toast.makeText(getApplicationContext(),
+                        "Gagal mendaftar, mohon lengkapi data diri anda !",
+                        Toast.LENGTH_SHORT).show();
             }
         }
         if (view.equals(btnQRCode)){

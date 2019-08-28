@@ -1,6 +1,7 @@
 package com.ratwareid.letschallenge.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.Result;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
 import com.ratwareid.letschallenge.adapter.PendaftarAdapter;
@@ -31,7 +34,9 @@ import com.ratwareid.letschallenge.model.Userdata;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ListPendaftarActivity extends AppCompatActivity {
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+public class ListPendaftarActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private Toolbar toolbar;
     private ProgressBar progressBar;
@@ -42,6 +47,8 @@ public class ListPendaftarActivity extends AppCompatActivity {
     private ArrayList<Pendaftar> listpendaftar;
     private ArrayList<Userdata> listuser;
     private PendaftarAdapter adapter;
+    private ZXingScannerView mScannerView;
+    private String textScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +68,10 @@ public class ListPendaftarActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.RV_listpendaftar);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
-
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.INVISIBLE);
         keyIntent = getIntent().getStringExtra("key");
+        mScannerView = new ZXingScannerView(this);
     }
 
     @Override
@@ -81,7 +90,8 @@ public class ListPendaftarActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
-            Toast.makeText(this, "Action clicked", Toast.LENGTH_LONG).show();
+            /*Toast.makeText(this, "Action clicked", Toast.LENGTH_LONG).show();*/
+            startScan();
             return true;
         }
 
@@ -107,6 +117,42 @@ public class ListPendaftarActivity extends AppCompatActivity {
                     listuser.add(userdata);
                 }
 
+                database.child("list_lomba").child(keyIntent).addValueEventListener(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Lomba lomba = dataSnapshot.getValue(Lomba.class);
+                        if (lomba.getPendaftar() != null && lomba.getPendaftar().size() > 0){
+
+                            if (listuser != null) {
+                                HashMap<String, String> lombapendaftar = lomba.getPendaftar();
+                                listpendaftar = new ArrayList<>();
+                                for (Object data : listuser) {
+                                    Userdata user = (Userdata) data;
+
+                                    if (lombapendaftar.containsKey(user.getKey())) {
+                                        Pendaftar pendaftar = new Pendaftar();
+                                        pendaftar.setEmail(user.getEmail());
+                                        pendaftar.setKodependaftaran(lombapendaftar.get(user.getKey()));
+                                        pendaftar.setLoginid(user.getKey());
+                                        listpendaftar.add(pendaftar);
+                                    }
+                                }
+
+                                adapter = new PendaftarAdapter(context, listpendaftar, ListPendaftarActivity.this);
+                                recyclerView.setAdapter(adapter);
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
+                    }
+                });
 
             }
 
@@ -116,41 +162,37 @@ public class ListPendaftarActivity extends AppCompatActivity {
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
             }
         });
+    }
 
-        database.child("list_lomba").child(keyIntent).addValueEventListener(new ValueEventListener() {
+    public void startScan(){
+        setContentView(mScannerView);
+        mScannerView.setResultHandler(this);
+        mScannerView.startCamera();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();
+    }
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+    @Override
+    public void handleResult(Result result) {
+        Log.v("TAG", result.getText()); // Prints scan results
+        Log.v("TAG", result.getBarcodeFormat().toString());
 
-                Lomba lomba = dataSnapshot.getValue(Lomba.class);
-                if (lomba.getPendaftar() != null && lomba.getPendaftar().size() > 0){
-
-                    HashMap<String,String> lombapendaftar = lomba.getPendaftar();
-                    for (Object data : listuser){
-                        Userdata user = (Userdata) data;
-
-                        if (lombapendaftar.containsKey(user.getKey())){
-                            Pendaftar pendaftar = new Pendaftar();
-                            pendaftar.setEmail(user.getEmail());
-                            pendaftar.setKodependaftaran(lombapendaftar.get(user.getKey()));
-                            pendaftar.setLoginid(user.getKey());
-                            listpendaftar.add(pendaftar);
-                        }
-                    }
-
+        mScannerView.stopCamera(); //<- then stop the camera
+        setContentView(R.layout.activity_list_pendaftar); //<-
+        this.loaddata();
+        textScan = result.getText();
+        if (listpendaftar != null && listpendaftar.size() > 0){
+            for (int x=0; x<listpendaftar.size(); x++){
+                Pendaftar pendaftar = listpendaftar.get(x);
+                if (pendaftar.getKodependaftaran().equals(textScan)){
+                    pendaftar.setfHadir("Y");
+                    adapter.notifyItemChanged(x);
                 }
-
-                adapter = new PendaftarAdapter(context, listpendaftar,ListPendaftarActivity.this );
-                recyclerView.setAdapter(adapter);
-                progressBar.setVisibility(View.INVISIBLE);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                progressBar.setVisibility(View.INVISIBLE);
-                System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-            }
-        });
+        }
     }
 }
