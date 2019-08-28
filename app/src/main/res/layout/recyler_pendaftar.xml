@@ -7,6 +7,7 @@
     android:layout_weight="5">
 
     <TextView
+        android:id="@+id/emailpendaftar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="example@domain.com"
@@ -14,10 +15,12 @@
         android:layout_weight="4"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/tandahadir"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_weight="1"
         android:background="@color/yellow"
+        android:visibility="invisible"
         android:src="@drawable/ic_check"/>
 
 </LinearLayout>

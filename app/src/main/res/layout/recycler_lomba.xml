@@ -34,7 +34,7 @@
                 android:maxLines="1"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
-                android:layout_margin="3dp"/>
+                android:layout_marginBottom="3dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -3,10 +3,11 @@ package com.ratwareid.letschallenge.model;
 public class Userdata {
     private String alamat,bio,email,nama,no_tlp,photo;
     private Long status;
+    private String key;
 
     public Userdata(){}
 
-    public Userdata(String alamat,String bio,String email,String nama,String no_tlp,String photo,Long status){
+    public Userdata(String alamat,String bio,String email,String nama,String no_tlp,String photo,Long status,String key){
         this.alamat = alamat;
         this.bio = bio;
         this.email = email;
@@ -14,6 +15,7 @@ public class Userdata {
         this.no_tlp = no_tlp;
         this.photo = photo;
         this.status = status;
+        this.key = key;
     }
 
     public String getAlamat() {
@@ -70,5 +72,13 @@ public class Userdata {
 
     public void setStatus(Long status) {
         this.status = status;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,7 +22,7 @@ public class TambahJenis extends AppCompatActivity {
     private DatabaseReference database;
 
     private EditText etNama, etKode;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
     private Button btn_cancel, btn_save;
 
     private String stID, stNama, stKode;
@@ -36,7 +37,8 @@ public class TambahJenis extends AppCompatActivity {
 
     private void initialize() {
         database = FirebaseDatabase.getInstance().getReference();
-
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
         stID = getIntent().getStringExtra("id");
         stNama = getIntent().getStringExtra("nama");
         stKode = getIntent().getStringExtra("kode");
@@ -75,12 +77,7 @@ public class TambahJenis extends AppCompatActivity {
                         etKode.setError("Silahkan masukkan kode");
                         etKode.requestFocus();
                     } else {
-                        loading = ProgressDialog.show(TambahJenis.this,
-                                null,
-                                "Please wait...",
-                                true,
-                                false);
-
+                        progressBar.setVisibility(View.VISIBLE);
                         submitUser(new Jenis(
                                 Snama,
                                 Skode.toUpperCase(),
@@ -96,11 +93,7 @@ public class TambahJenis extends AppCompatActivity {
                         etKode.setError("Silahkan masukkan kode");
                         etKode.requestFocus();
                     }else {
-                        loading = ProgressDialog.show(TambahJenis.this,
-                                null,
-                                "Please wait...",
-                                true,
-                                false);
+                        progressBar.setVisibility(View.VISIBLE);
 
                         editUser(new Jenis(
                                 Snama,
@@ -134,7 +127,7 @@ public class TambahJenis extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        loading.dismiss();
+                        progressBar.setVisibility(View.GONE);
 
                         etNama.setText("");
                         etKode.setText("");
@@ -156,7 +149,7 @@ public class TambahJenis extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        loading.dismiss();
+                        progressBar.setVisibility(View.GONE);
 
                         etNama.setText("");
                         etKode.setText("");

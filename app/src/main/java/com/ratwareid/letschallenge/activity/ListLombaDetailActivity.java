@@ -1,5 +1,6 @@
 package com.ratwareid.letschallenge.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -9,13 +10,16 @@ import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ListLombaDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
     private DatabaseReference database;
     private Lomba mlomba;
     private TextView tvNama,tvTanggal,tvTempat,tvDeskripsi,tvPenyelenggara,tvJenis,tvJumlah,tvBiaya,tvTotalHadiah;
@@ -49,6 +53,8 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
     private CircleImageView civImg;
     private ArrayList<String> lombadisimpan;
     private TextView tvAnnounce;
+    public static String key;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,17 +88,33 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
         tvAnnounce = findViewById(R.id.TV_berhasildaftar);
         btnListPendaftar = findViewById(R.id.btn_showpendaftar);
         btnListPendaftar.setOnClickListener(this);
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
+
+        key =  getIntent().getStringExtra("key");
+        if (key != null) {
+            prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("keyIntent", key);
+            editor.apply();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefs.edit().remove("keyIntent").apply();
     }
 
     public void loaddata(){
 
-        loading = ProgressDialog.show(ListLombaDetailActivity.this,
-                null,
-                "Please wait...",
-                true,
-                false);
+        if (key == null){
+            prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            key = prefs.getString("keyIntent",key);
+        }
 
-        String key = getIntent().getStringExtra("key");
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("list_lomba").child(key).addValueEventListener(new ValueEventListener() {
             @SuppressLint("ResourceAsColor")
@@ -124,13 +146,13 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                         }
                     }
                 }
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -150,13 +172,13 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                         btnSimpan.setVisibility(View.GONE);
                     }
                 }
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -191,28 +213,20 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if (view.equals(btnSimpan)){
 
-            loading = ProgressDialog.show(ListLombaDetailActivity.this,
-                    null,
-                    "Menyimpan data...",
-                    true,
-                    false);
+            progressBar.setVisibility(View.VISIBLE);
 
             lombadisimpan.add(mlomba.getKey());
             this.simpanData(database,lombadisimpan,"lomba_disimpan",
-                    this,loading);
+                    this,progressBar);
         }
         if (view.equals(btnDaftar)){
-            loading = ProgressDialog.show(ListLombaDetailActivity.this,
-                    null,
-                    "Menyimpan data...",
-                    true,
-                    false);
+            progressBar.setVisibility(View.VISIBLE);
             if (mlomba.getPendaftar() == null) mlomba.setPendaftar(new HashMap<String, String>());
             try {
 
                 String combinecode = mlomba.getJenis_lomba().concat(mlomba.getKey()).concat(Constant.getLoginID());
                 mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(combinecode));
-                this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,loading);
+                this.daftarLomba(database,mlomba.getPendaftar(),mlomba.getKey(), this,progressBar);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
@@ -221,21 +235,23 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
             showQRCode();
         }
         if (view.equals(btnListPendaftar)){
+
             Intent myIntent = new Intent(this, ListPendaftarActivity.class);
+            myIntent.putExtra("key",key);
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             this.startActivity(myIntent,options.toBundle());
         }
     }
 
     public void simpanData(DatabaseReference database, ArrayList listid, String childDB,
-                                  final Activity activity, final ProgressDialog loading) {
+                                  final Activity activity, final ProgressBar progressBar) {
         database.child(childDB).child(Constant.getLoginID())
                 .setValue(listid)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        loading.dismiss();
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(activity.getApplicationContext(),
                                 "Data Berhasil ditambahkan",
                                 Toast.LENGTH_SHORT).show();
@@ -243,14 +259,14 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                 });
     }
 
-    public void daftarLomba(DatabaseReference database,HashMap <String,String> listpendaftar,String idlomba, final Activity activity, final ProgressDialog loading) {
+    public void daftarLomba(DatabaseReference database,HashMap <String,String> listpendaftar,String idlomba, final Activity activity, final ProgressBar progressBar) {
         database.child("list_lomba").child(idlomba).child("pendaftar")
                 .setValue(listpendaftar)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        loading.dismiss();
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(activity.getApplicationContext(),
                                 "Data Berhasil ditambahkan",
                                 Toast.LENGTH_SHORT).show();

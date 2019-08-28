@@ -142,7 +142,7 @@
                     android:hint="Deksripsi Perlombaan"
                     android:maxLines="3"
                     android:textColor="@color/standarttext"
-                    android:maxLength="80"/>
+                    android:maxLength="100"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

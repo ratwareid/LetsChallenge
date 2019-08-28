@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +29,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     private Toolbar toolbar;
     private TextInputEditText etNama,etNoTlp,etAlamat,etBio;
-    private ProgressDialog loading;
+    private ProgressBar progressBar;
     private DatabaseReference database;
     private Userdata userdata;
     private MaterialButton btnSimpan;
@@ -54,6 +55,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
         btnSimpan = findViewById(R.id.btn_saveprofile);
         btnSimpan.setOnClickListener(this);
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -63,11 +66,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void loaddata(){
-        loading = ProgressDialog.show(EditProfileActivity.this,
-                null,
-                "Please wait...",
-                true,
-                false);
+        progressBar.setVisibility(View.VISIBLE);
 
         database.child("userdata").child(Constant.getLoginID()).addValueEventListener(new ValueEventListener() {
             @SuppressLint("ResourceAsColor")
@@ -75,13 +74,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userdata = dataSnapshot.getValue(Userdata.class);
                 placedata(userdata);
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-                loading.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -135,7 +134,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        loading.dismiss();
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(),
                                 "Data Berhasil disimpan",
                                 Toast.LENGTH_SHORT).show();

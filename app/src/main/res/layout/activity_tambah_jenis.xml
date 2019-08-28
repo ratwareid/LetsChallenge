@@ -9,6 +9,17 @@
     android:layout_marginVertical="20dp"
     android:layout_marginHorizontal="10dp">
 
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:max="100"
+        android:backgroundTint="@android:color/white"
+        android:indeterminateTint="#1a09d6"
+        android:layout_marginTop="-7dp"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_jenisadd"
         android:layout_width="150dp"
@@ -16,7 +27,8 @@
         android:layout_centerHorizontal="true"
         app:civ_border_color="@color/colorbottom"
         app:civ_border_width="3dp"
-        android:src="@drawable/ic_calendar"/>
+        android:layout_below="@id/progressbar"
+        android:src="@color/abumuda"/>
 
 
     <EditText
