@@ -1,6 +1,7 @@
 package com.ratwareid.letschallenge.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,12 +19,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
 import com.ratwareid.letschallenge.adapter.PendaftarAdapter;
@@ -31,12 +36,13 @@ import com.ratwareid.letschallenge.model.Lomba;
 import com.ratwareid.letschallenge.model.Pendaftar;
 import com.ratwareid.letschallenge.model.Userdata;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
-public class ListPendaftarActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class ListPendaftarActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ProgressBar progressBar;
@@ -47,8 +53,8 @@ public class ListPendaftarActivity extends AppCompatActivity implements ZXingSca
     private ArrayList<Pendaftar> listpendaftar;
     private ArrayList<Userdata> listuser;
     private PendaftarAdapter adapter;
-    private ZXingScannerView mScannerView;
     private String textScan;
+    private IntentIntegrator intentIntegrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +77,6 @@ public class ListPendaftarActivity extends AppCompatActivity implements ZXingSca
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.INVISIBLE);
         keyIntent = getIntent().getStringExtra("key");
-        mScannerView = new ZXingScannerView(this);
     }
 
     @Override
@@ -126,18 +131,12 @@ public class ListPendaftarActivity extends AppCompatActivity implements ZXingSca
                         if (lomba.getPendaftar() != null && lomba.getPendaftar().size() > 0){
 
                             if (listuser != null) {
-                                HashMap<String, String> lombapendaftar = lomba.getPendaftar();
-                                listpendaftar = new ArrayList<>();
-                                for (Object data : listuser) {
-                                    Userdata user = (Userdata) data;
 
-                                    if (lombapendaftar.containsKey(user.getKey())) {
-                                        Pendaftar pendaftar = new Pendaftar();
-                                        pendaftar.setEmail(user.getEmail());
-                                        pendaftar.setKodependaftaran(lombapendaftar.get(user.getKey()));
-                                        pendaftar.setLoginid(user.getKey());
-                                        listpendaftar.add(pendaftar);
-                                    }
+                                listpendaftar = new ArrayList<>();
+                                for (Map.Entry data : lomba.getPendaftar().entrySet()) {
+                                    Pendaftar mpendaftar = (Pendaftar) data.getValue();
+                                    mpendaftar.setLoginid(String.valueOf(data.getKey()));
+                                    listpendaftar.add(mpendaftar);
                                 }
 
                                 adapter = new PendaftarAdapter(context, listpendaftar, ListPendaftarActivity.this);
@@ -165,34 +164,38 @@ public class ListPendaftarActivity extends AppCompatActivity implements ZXingSca
     }
 
     public void startScan(){
-        setContentView(mScannerView);
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
+        intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.initiateScan();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mScannerView.stopCamera();
-    }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null){
+            if (result.getContents() == null){
+                Toast.makeText(this, "Hasil tidak ditemukan", Toast.LENGTH_SHORT).show();
+            }else{
+                // jika qrcode berisi data
+                textScan = result.getContents();
 
-    @Override
-    public void handleResult(Result result) {
-        Log.v("TAG", result.getText()); // Prints scan results
-        Log.v("TAG", result.getBarcodeFormat().toString());
-
-        mScannerView.stopCamera(); //<- then stop the camera
-        setContentView(R.layout.activity_list_pendaftar); //<-
-        this.loaddata();
-        textScan = result.getText();
-        if (listpendaftar != null && listpendaftar.size() > 0){
-            for (int x=0; x<listpendaftar.size(); x++){
-                Pendaftar pendaftar = listpendaftar.get(x);
-                if (pendaftar.getKodependaftaran().equals(textScan)){
-                    pendaftar.setfHadir("Y");
-                    adapter.notifyItemChanged(x);
+                if(listpendaftar == null){
+                    this.loaddata();
                 }
+
+                for (int x=0;x<listpendaftar.size();x++){
+                    Pendaftar pendaftar =  listpendaftar.get(x);
+                    if (pendaftar.getKodependaftaran().equals(textScan)){
+                        pendaftar.setfHadir("Y");
+                        adapter.notifyItemChanged(x);
+                        database.child("list_lomba").child(keyIntent).child("pendaftar").child(pendaftar.getLoginid()).child("fHadir").setValue("Y");
+                    }
+                }
+
+
+
             }
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

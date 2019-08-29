@@ -36,6 +36,7 @@ import com.ratwareid.letschallenge.ImageUtil;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
 import com.ratwareid.letschallenge.model.Lomba;
+import com.ratwareid.letschallenge.model.Pendaftar;
 import com.ratwareid.letschallenge.model.Userdata;
 
 import java.security.NoSuchAlgorithmException;
@@ -241,11 +242,13 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
             if (datapendaftar != null) {
                 progressBar.setVisibility(View.VISIBLE);
                 if (mlomba.getPendaftar() == null)
-                    mlomba.setPendaftar(new HashMap<String, String>());
+                    mlomba.setPendaftar(new HashMap<String, Pendaftar>());
                 try {
-
                     String combinecode = mlomba.getJenis_lomba().concat(mlomba.getKey()).concat(Constant.getLoginID());
-                    mlomba.getPendaftar().put(Constant.getLoginID(), IDFactory.generateUniqueKey(combinecode));
+                    Pendaftar pendaftar = new Pendaftar();
+                    pendaftar.setEmail(Constant.getLoginemail());
+                    pendaftar.setKodependaftaran(IDFactory.generateUniqueKey(combinecode));
+                    mlomba.getPendaftar().put(Constant.getLoginID(),pendaftar);
                     this.daftarLomba(database, mlomba.getPendaftar(), mlomba.getKey(), this, progressBar);
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
@@ -284,9 +287,9 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
                 });
     }
 
-    public void daftarLomba(DatabaseReference database,HashMap <String,String> listpendaftar,String idlomba, final Activity activity, final ProgressBar progressBar) {
+    public void daftarLomba(DatabaseReference database,HashMap pendaftar,String idlomba, final Activity activity, final ProgressBar progressBar) {
         database.child("list_lomba").child(idlomba).child("pendaftar")
-                .setValue(listpendaftar)
+                .setValue(pendaftar)
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -305,7 +308,7 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
 
         View view  = this.getLayoutInflater().inflate(R.layout.dialog_qrcode, null);
         ImageView IVqrcode = view.findViewById(R.id.QRCode);
-        Bitmap bmp = ImageUtil.generateQRCODE(mlomba.getPendaftar().get(Constant.getLoginID()));
+        Bitmap bmp = ImageUtil.generateQRCODE(mlomba.getPendaftar().get(Constant.getLoginID()).getKodependaftaran());
         IVqrcode.setImageBitmap(bmp);
         dialogPicture.setContentView(view);
         dialogPicture.show();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lets Challenge</string>
+    <string name="app_name">Ayo Lomba</string>
     <string name="hint_til_email">Email</string>
     <string name="hint_til_password">Password</string>
     <string name="txtbtn_login">MASUK</string>
