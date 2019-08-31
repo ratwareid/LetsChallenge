@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -97,24 +98,37 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
 
         key =  getIntent().getStringExtra("key");
         if (key != null) {
-            prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            prefs = getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("keyIntent", key);
             editor.apply();
         }
     }
 
+    public static SharedPreferences getDefaultSharedPreferences(Context context) {
+        return context.getSharedPreferences(getDefaultSharedPreferencesName(context),
+                getDefaultSharedPreferencesMode());
+    }
+
+    private static String getDefaultSharedPreferencesName(Context context) {
+        return context.getPackageName() + "_preferences";
+    }
+
+    private static int getDefaultSharedPreferencesMode() {
+        return Context.MODE_PRIVATE;
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefs = getDefaultSharedPreferences(getApplicationContext());
         prefs.edit().remove("keyIntent").apply();
     }
 
     public void loaddata(){
 
         if (key == null){
-            prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            prefs = getDefaultSharedPreferences(getApplicationContext());
             key = prefs.getString("keyIntent",key);
         }
 
@@ -217,8 +231,16 @@ public class ListLombaDetailActivity extends AppCompatActivity implements View.O
             tvPenyelenggara.setText(lomba.getPenyelenggara());
             tvJenis.setText(lomba.getNama_jenis());
             tvJumlah.setText(lomba.getJumlah_peserta());
-            tvBiaya.setText(lomba.getBiaya_pendaftaran().toString());
-            tvTotalHadiah.setText(lomba.getTotal_hadiah().toString());
+            if (lomba.getBiaya_pendaftaran() != null) {
+                tvBiaya.setText(lomba.getBiaya_pendaftaran().toString());
+            }else{
+                tvBiaya.setText("0");
+            }
+            if (lomba.getTotal_hadiah() != null) {
+                tvTotalHadiah.setText(lomba.getTotal_hadiah().toString());
+            }else{
+                tvTotalHadiah.setText("0");
+            }
         }
     }
 
