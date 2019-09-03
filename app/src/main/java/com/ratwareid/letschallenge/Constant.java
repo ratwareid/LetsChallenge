@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge.fragment;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;

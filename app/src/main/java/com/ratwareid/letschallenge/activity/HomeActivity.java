@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge.activity;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

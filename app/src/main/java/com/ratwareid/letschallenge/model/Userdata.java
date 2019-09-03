@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge.model;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 public class Userdata {
     private String alamat,bio,email,nama,no_tlp,photo;
     private Long status;

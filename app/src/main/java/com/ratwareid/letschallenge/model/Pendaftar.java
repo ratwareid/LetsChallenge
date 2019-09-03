@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge.model;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;

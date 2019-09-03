@@ -1,21 +1,22 @@
 package com.ratwareid.letschallenge.activity;
 
-import androidx.annotation.Nullable;
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,9 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
-import com.ratwareid.letschallenge.adapter.JenisAdapter;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
-import com.ratwareid.letschallenge.model.Jenis;
 import com.ratwareid.letschallenge.model.Lomba;
 
 import java.util.ArrayList;

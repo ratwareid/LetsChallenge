@@ -1,6 +1,12 @@
 package com.ratwareid.letschallenge.model;
 
-import java.util.ArrayList;
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import java.util.HashMap;
 
 public class Lomba {

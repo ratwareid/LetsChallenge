@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge.adapter;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;

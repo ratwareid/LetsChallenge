@@ -1,6 +1,11 @@
 package com.ratwareid.letschallenge.fragment;
 
-import android.app.ProgressDialog;
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,15 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,6 @@ import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.activity.HomeActivity;
 import com.ratwareid.letschallenge.adapter.JenisAdapter;
 import com.ratwareid.letschallenge.model.Jenis;
-
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {

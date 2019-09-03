@@ -1,8 +1,12 @@
 package com.ratwareid.letschallenge.fragment;
 
-import android.app.ProgressDialog;
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.activity.HomeActivity;
-import com.ratwareid.letschallenge.activity.ListLombaActivity;
 import com.ratwareid.letschallenge.adapter.LombaAdapter;
 import com.ratwareid.letschallenge.model.Lomba;
 

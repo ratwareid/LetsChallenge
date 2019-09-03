@@ -1,5 +1,12 @@
 package com.ratwareid.letschallenge.activity;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;

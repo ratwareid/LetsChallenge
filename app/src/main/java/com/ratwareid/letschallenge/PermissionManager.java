@@ -1,10 +1,16 @@
 package com.ratwareid.letschallenge;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
-
 import androidx.core.app.ActivityCompat;
 
 public class PermissionManager {

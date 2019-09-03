@@ -1,5 +1,11 @@
 package com.ratwareid.letschallenge.fragment;
 
+//***********************************//
+// Created by Jerry Erlangga         //
+// My Repo: www.github.com/ratwareid //
+// Email : jerryerlangga82@gmail.com //
+//***********************************//
+
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
