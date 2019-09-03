@@ -84,13 +84,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     public void checkpermission(){
 
         PermissionManager pm = new PermissionManager();
-        boolean allowStorage = pm.checkPermissionForReadExtertalStorage(this);
+        boolean allowReadStorage = pm.checkPermissionForReadExtertalStorage(this);
         boolean allowCamera = pm.checkPermissionForCamera(this);
-        if (!allowStorage){
+        boolean allowWriteStorage = pm.checkPermissionWriteStorage(this);
+        if (!allowReadStorage){
             pm.requestPermissionForReadExtertalStorage(this);
         }
         if (!allowCamera){
             pm.requestPermissionForCamera(this);
+        }
+        if (!allowWriteStorage){
+            pm.requestPermissionForWriteStorage(this);
         }
     }
 }
