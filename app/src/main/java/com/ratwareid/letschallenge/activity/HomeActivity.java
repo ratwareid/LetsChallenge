@@ -9,10 +9,14 @@ package com.ratwareid.letschallenge.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +29,9 @@ import com.ratwareid.letschallenge.fragment.AccountFragment;
 import com.ratwareid.letschallenge.fragment.FavoriteFragment;
 import com.ratwareid.letschallenge.fragment.HomeFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     FirebaseAuth firebaseAuth;
     BottomNavigationView bottomNavigationView;
@@ -36,7 +43,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_home);
         firebaseAuth = FirebaseAuth.getInstance();
         initialize();
-        checkpermission();
     }
 
     @Override
@@ -45,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void initialize(){
-
+        PermissionManager.checkAllPermission(this);
     // kita set default nya Home Fragment
         loadFragment(new HomeFragment());
     // inisialisasi BottomNavigaionView
@@ -88,20 +94,13 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         return loadFragment(fragment);
     }
 
-    public void checkpermission(){
-
-        PermissionManager pm = new PermissionManager();
-        boolean allowReadStorage = pm.checkPermissionForReadExtertalStorage(this);
-        boolean allowCamera = pm.checkPermissionForCamera(this);
-        boolean allowWriteStorage = pm.checkPermissionWriteStorage(this);
-        if (!allowReadStorage){
-            pm.requestPermissionForReadExtertalStorage(this);
-        }
-        if (!allowCamera){
-            pm.requestPermissionForCamera(this);
-        }
-        if (!allowWriteStorage){
-            pm.requestPermissionForWriteStorage(this);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == 100) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+            return;
         }
     }
 }

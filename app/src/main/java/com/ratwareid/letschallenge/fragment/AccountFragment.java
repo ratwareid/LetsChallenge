@@ -7,6 +7,7 @@ package com.ratwareid.letschallenge.fragment;
 //***********************************//
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -14,6 +15,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +36,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +54,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.ImageUtil;
+import com.ratwareid.letschallenge.PermissionManager;
 import com.ratwareid.letschallenge.R;
 import com.ratwareid.letschallenge.activity.EditProfileActivity;
 import com.ratwareid.letschallenge.activity.HomeActivity;
