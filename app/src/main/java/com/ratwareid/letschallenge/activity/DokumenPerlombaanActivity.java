@@ -305,7 +305,7 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
             return null;
     }
 
-    public void decodeFile(String filePath) {
+    public void decodeFile(String filePath) throws Exception {
         // Decode image size
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
@@ -338,6 +338,7 @@ public class DokumenPerlombaanActivity extends AppCompatActivity implements View
 
             //Convert to base64
             String base64 = ImageUtil.convert(bitmap);
+            bitmap = ImageUtil.repositionImage(filePath,bitmap);
             lomba.setLogo_lomba(base64);
         }
     }

@@ -19,6 +19,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -70,6 +72,7 @@ import com.ratwareid.letschallenge.model.Lomba;
 import com.ratwareid.letschallenge.model.Userdata;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -359,7 +362,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     @SuppressLint("ShowToast")
-    public void decodeFile(String filePath) {
+    public void decodeFile(String filePath) throws Exception {
         // Decode image size
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
@@ -387,6 +390,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
         //Try to endcode bitmap
         if (bitmap != null){
+            bitmap = ImageUtil.repositionImage(filePath,bitmap);
             String base64 = ImageUtil.convert(bitmap);
             uploadphoto(base64);
         }
