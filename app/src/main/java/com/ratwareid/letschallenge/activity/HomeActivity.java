@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
+import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ratwareid.letschallenge.PermissionManager;
@@ -32,9 +34,9 @@ import com.ratwareid.letschallenge.fragment.HomeFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements BubbleNavigationChangeListener {
     FirebaseAuth firebaseAuth;
-    BottomNavigationView bottomNavigationView;
+    BubbleNavigationLinearView bottomNavigationView;
 
 
     @Override
@@ -57,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     // inisialisasi BottomNavigaionView
         bottomNavigationView = findViewById(R.id.bn_main);
     // beri listener pada saat item/menu bottomnavigation terpilih
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setNavigationChangeListener(this);
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -76,23 +78,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    // method listener untuk logika pemilihan
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
-        switch (item.getItemId()){
-            case R.id.home_menu:
-                fragment = new HomeFragment();
-                break;
-            case R.id.favorite_menu:
-                fragment = new FavoriteFragment();
-                break;
-            case R.id.account_menu:
-                fragment = new AccountFragment();
-                break;
-        }
-        return loadFragment(fragment);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -102,5 +87,24 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             }
             return;
         }
+    }
+
+    @Override
+    public void onNavigationChanged(View view, int position) {
+        switch (position){
+            case 0:
+                Fragment hfrag = new HomeFragment();
+                loadFragment(hfrag);
+                break;
+            case 1:
+                Fragment ffrag = new FavoriteFragment();
+                loadFragment(ffrag);
+                break;
+            case 2:
+                Fragment afrag = new AccountFragment();
+                loadFragment(afrag);
+                break;
+        }
+
     }
 }

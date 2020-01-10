@@ -4,250 +4,259 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white">
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:max="100"
-        android:backgroundTint="@android:color/white"
-        android:indeterminateTint="#1a09d6"
-        android:layout_marginTop="-7dp"/>
-
-    <TextView
-        android:id="@+id/tv_nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/your_name"
-        android:textSize="16dp"
-        android:textStyle="bold|italic"
-        android:textColor="@color/yellow"
-        android:paddingTop="20dp"
-        android:paddingLeft="10dp" />
-
-    <RelativeLayout
-        android:id="@+id/groupphoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:layout_anchorGravity="left|bottom"
-        android:layout_marginTop="30dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/CIV_btnadd"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignEnd="@id/CIV_profile"
-            android:layout_alignBottom="@id/CIV_profile"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/ic_add_circle"
-            app:civ_border_color="#fff"
-            app:civ_border_width="2dp"
-            app:civ_circle_background_color="@android:color/white"
-            android:elevation="5px"
-            />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/CIV_profile"
-            android:src="@color/abumuda"
-            app:civ_border_color="@color/birutua"
-            app:civ_border_width="1dp"
-            app:civ_circle_background_color="@android:color/white"
-            />
-
-        <ProgressBar
-            android:id="@+id/progressbarphoto"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:max="100"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:backgroundTint="@android:color/white"
-            android:indeterminateTint="@color/colorAccent"
-            android:elevation="2px"
-            android:layout_marginTop="-7dp"/>
-
-    </RelativeLayout>
-
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_below="@id/groupphoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="\@your_uemail"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/black"
-        android:textStyle="italic|bold"
-        android:enabled="false"/>
-
-    <TextView
-        android:id="@+id/tv_notlp"
-        android:layout_below="@id/et_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="Nomor telephone"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/black"
-        android:textStyle="italic|bold"/>
-
-    <TextView
-        android:id="@+id/tv_alamat"
-        android:layout_below="@id/tv_notlp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:paddingHorizontal="10dp"
-        android:hint="Alamat Lengkap Anda"
-        android:textColor="@color/black"
-        android:textStyle="italic|bold"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/CV_bio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_alamat"
-        app:cardCornerRadius="2dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/tv_bio"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:text="Tulis Biografi anda disini ..."
-            android:padding="20dp"/>
-
-    </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_edit_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_below="@id/CV_bio"
-        app:strokeColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:text="Ubah Profile"
-        android:textColor="@android:color/black"/>
+    android:background="@color/cardblue"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/groupList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/btn_edit_profile"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:weightSum="2">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_blue"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            app:cardBackgroundColor="@color/cardblue"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-7dp"
+                android:backgroundTint="@android:color/white"
+                android:indeterminate="true"
+                android:indeterminateTint="#1a09d6"
+                android:max="100" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_idea"/>
+            <TextView
+                android:id="@+id/tv_nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_name"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/yellow"
+                android:textSize="16dp"
+                android:fontFamily="@font/poppins_light" />
 
-                <TextView
-                    android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/groupphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                app:layout_anchorGravity="left|bottom">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/CIV_btnadd"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignEnd="@id/CIV_profile"
+                    android:layout_alignBottom="@id/CIV_profile"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:elevation="5px"
+                    android:src="@drawable/ic_add_circle"
+                    app:civ_border_color="#fff"
+                    app:civ_border_width="2dp"
+                    app:civ_circle_background_color="@android:color/white" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/CIV_profile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@color/abumuda"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="1dp"
+                    app:civ_circle_background_color="@android:color/white" />
+
+                <ProgressBar
+                    android:id="@+id/progressbarphoto"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Lomba Dibuat"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="14dp"/>
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="-7dp"
+                    android:backgroundTint="@android:color/white"
+                    android:elevation="2px"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/colorAccent"
+                    android:max="100"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/groupphoto"
+                android:layout_centerHorizontal="true"
+                android:enabled="false"
+                android:hint="\@your_uemail"
+                android:fontFamily="@font/poppins_light"
+                android:paddingHorizontal="10dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_notlp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_email"
+                android:layout_centerHorizontal="true"
+                android:hint="Nomor telephone"
+                android:paddingHorizontal="10dp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_light" />
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_notlp"
+                android:layout_centerHorizontal="true"
+                android:hint="Alamat Lengkap Anda"
+                android:paddingHorizontal="10dp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_light"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/top_rounded"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/tv_bio"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:padding="20dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Tulis Biografi anda disini ..." />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_bio"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/poppins_light"
+                android:text="Ubah Profile"
+                android:textColor="@android:color/black"
+                app:strokeColor="@android:color/white" />
+
+            <LinearLayout
+                android:id="@+id/groupList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_edit_profile"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_blue"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/cardblue">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_idea" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lomba Dibuat"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/white"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/poppins_light"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_red"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/cardred">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_clipboard" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lomba Didaftarkan"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/white"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/poppins_light"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
 
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_red"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            app:cardBackgroundColor="@color/cardred"
-            android:layout_weight="1">
-
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_TJ"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/groupList"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@android:color/white"
+                android:text="Tambah Jenis"
+                android:fontFamily="@font/poppins_light"
+                android:textColor="@android:color/black"
+                app:strokeColor="@android:color/white" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_clipboard"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_TJ"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@android:color/white"
+                android:text="Logout"
+                android:fontFamily="@font/poppins_light"
+                android:textColor="@android:color/black"
+                app:strokeColor="@android:color/white" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lomba Didaftarkan"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="14dp"/>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_TJ"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tambah Jenis"
-        app:strokeColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/groupList"
-        android:enabled="false"
-        android:layout_marginHorizontal="10dp"
-        android:visibility="gone"/>
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="100dp"
-        android:layout_below="@id/btn_TJ"
-        app:strokeColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:textColor="@android:color/black"
-        android:text="Logout"/>
-
-
-</RelativeLayout>
 </ScrollView>

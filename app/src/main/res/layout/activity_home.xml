@@ -14,14 +14,50 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bn_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorbottom"
+
         app:itemIconTint="@color/colorNavigationIcon"
         app:itemTextColor="@color/colorNavigationText"
-        app:menu="@menu/bottomnavigation_menu" />
+        android:orientation="horizontal">
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/menu_home"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/cardred"
+            app:bt_colorInactive="@color/colorbottom"
+            app:bt_icon="@drawable/ic_home"
+            app:bt_title="Home" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/menu_favorit"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/cardred"
+            app:bt_colorInactive="@color/colorbottom"
+            app:bt_icon="@drawable/ic_favorite"
+            app:bt_title="Favorite" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/menu_profile"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/cardred"
+            app:bt_colorInactive="@color/colorbottom"
+            app:bt_icon="@drawable/ic_account"
+            app:bt_title="Profile" />
+
+    </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
+
 
 </RelativeLayout>
