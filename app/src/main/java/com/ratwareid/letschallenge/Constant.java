@@ -17,6 +17,7 @@ public class Constant {
     public static String loginemail;
     public static String loginID;
     public static String tempJenis;
+    public static int coloumGridDefault = 3;
 
     public static String getLoginemail() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

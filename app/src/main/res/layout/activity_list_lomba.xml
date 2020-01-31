@@ -36,12 +36,13 @@
             android:focusable="true"
             android:textColor="@color/black"
             android:focusableInTouchMode="true"
-            android:hint="Cari..."/>
+            android:hint="Cari..."
+            android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/autocomplete">
+        android:layout_below="@id/progressbar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RV_listlomba"

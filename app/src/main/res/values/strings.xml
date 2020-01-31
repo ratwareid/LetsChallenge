@@ -15,4 +15,5 @@
     <string name="favorite">Favorit</string>
     <string name="account">Profil</string>
     <string name="your_name"><u>Nama Anda</u>.</string>
+    <string name="search_hint">Search ....</string>
 </resources>
