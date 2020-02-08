@@ -12,30 +12,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MaterialButton btnSubmit;
-    private TextInputEditText ETemail, ETpassword, ETrepassword;
+    private TextView textButtonRegister;
+    private EditText ETemail, ETpassword, ETrepassword;
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener fStateListener;
+
+    CatLoadingView catLoadingView;
+
+    private VideoView videoView;
+
+    private TextView textSignIn;
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
@@ -43,16 +50,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         initialize();
     }
 
     private void initialize() {
-        btnSubmit = findViewById(R.id.btn_submitregis);
-        btnSubmit.setOnClickListener(this);
-        ETemail = findViewById(R.id.MAT_editem);
-        ETpassword = findViewById(R.id.MAT_editpw);
-        ETrepassword = findViewById(R.id.MAT_editrepw);
+        textButtonRegister = findViewById(R.id.textButtonRegister);
+        textButtonRegister.setOnClickListener(this);
+        ETemail = findViewById(R.id.inputEmail);
+        ETpassword = findViewById(R.id.inputPassword);
+        ETrepassword = findViewById(R.id.inputPasswordAgain);
         fAuth = FirebaseAuth.getInstance();
+        catLoadingView = new CatLoadingView();
+        videoView = findViewById(R.id.videoLogin);
+        textSignIn = findViewById(R.id.textSignin);
+        textSignIn.setOnClickListener(this);
+
+        setVideoBackground();
+
         fStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -69,18 +84,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         };
     }
 
-    private void moveToHome(){
+    private void setVideoBackground() {
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.background);
+        videoView.setVideoURI(uri);
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+        videoView.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoView.start();
+    }
+
+    private void moveToHome() {
         Intent myIntent = new Intent(RegisterActivity.this, HomeActivity.class);
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this);
-        startActivity(myIntent,options.toBundle());
+        startActivity(myIntent, options.toBundle());
     }
 
     @Override
     public void onClick(View view) {
-        if (view.equals(btnSubmit)) {
+        if (view.equals(textButtonRegister)) {
 
             validateData();
+        }else if(view.equals(textSignIn)){
+            moveToLogin();
         }
+    }
+
+    private void moveToLogin() {
+        finish();
     }
 
     private void validateData() {
@@ -103,7 +142,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             failed = true;
         }
 
-        if (!failed){
+        if (!failed) {
+            catLoadingView.show(getSupportFragmentManager(), "Register");
+            catLoadingView.setCanceledOnTouchOutside(false);
             signUp(ETemail.getText().toString(), ETpassword.getText().toString());
         }
     }
@@ -122,12 +163,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                          * signed in user bisa dihandle di listener.
                          */
                         if (!task.isSuccessful()) {
+                            catLoadingView.dismiss();
                             task.getException().printStackTrace();
                             Toast.makeText(RegisterActivity.this, "Proses Pendaftaran Gagal",
-                            Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_SHORT).show();
                         } else {
+                            catLoadingView.dismiss();
                             Toast.makeText(RegisterActivity.this, "Proses Pendaftaran Berhasil\n Email " + email,
-                            Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_SHORT).show();
                             RegisterActivity.super.onBackPressed();
                         }
 

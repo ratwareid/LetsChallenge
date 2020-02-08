@@ -8,27 +8,18 @@ package com.ratwareid.letschallenge.adapter;
 
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ratwareid.letschallenge.Constant;
 import com.ratwareid.letschallenge.R;
-import com.ratwareid.letschallenge.activity.ListLombaActivity;
-import com.ratwareid.letschallenge.model.Jenis;
 import com.ratwareid.letschallenge.model.Pendaftar;
 
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;

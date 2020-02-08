@@ -9,45 +9,41 @@ package com.ratwareid.letschallenge.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.ActivityOptions;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ratwareid.letschallenge.PermissionManager;
 import com.ratwareid.letschallenge.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MaterialButton btnLogin;
-    private MaterialButton btnRegis;
+    private TextView textButtonLogin;
+    private TextView textSignup;
     private Context context;
-    private TextInputEditText ETpassword,ETemail;
+    private EditText ETemail,ETpassword;
     private FirebaseAuth fAuth;
-    private ProgressBar progressBar;
+    private VideoView videoView;
+    private CatLoadingView catLoadingView;
 
 
     @Override
@@ -62,37 +58,63 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         PermissionManager.checkAllPermission(this);
 
-        btnLogin = findViewById(R.id.MAT_btnlogin);
-        btnLogin.setOnClickListener(this);
-        btnRegis = findViewById(R.id.MAT_btnregis);
-        btnRegis.setOnClickListener(this);
+        textButtonLogin = findViewById(R.id.textButtonLogin);
+        textButtonLogin.setOnClickListener(this);
+        textSignup = findViewById(R.id.textSignup);
+        textSignup.setOnClickListener(this);
         ETpassword = findViewById(R.id.MAT_editpassword);
         ETemail = findViewById(R.id.MAT_editemail);
         context = this.getApplicationContext();
         fAuth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.progressbar);
-        progressBar.setVisibility(View.INVISIBLE);
+        videoView = findViewById(R.id.videoLogin);
+        catLoadingView = new CatLoadingView();
+
+        setBackgroundVideo();
+
         if(fAuth.getCurrentUser() != null){
             moveToHome();
         }
     }
 
+    private void setBackgroundVideo() {
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.background);
+        videoView.setVideoURI(uri);
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+        videoView.start();
+    }
+
 
     @Override
     public void onClick(View view) {
-        if (view.equals(btnLogin)){
+        if (view.equals(textButtonLogin)){
 
-            try {
-                doSignIn(ETemail.getText().toString(),ETpassword.getText().toString());
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (ETemail.getText().toString().equals("") || ETpassword.getText().toString().equals("")){
+                Toast.makeText(context, "Harap Masukkan Username dan Password", Toast.LENGTH_SHORT).show();
+            }else{
+                try {
+                    doSignIn(ETemail.getText().toString(),ETpassword.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
         }
-        if (view.equals(btnRegis)){
+        if (view.equals(textSignup)){
             Intent myIntent = new Intent(this, RegisterActivity.class);
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             startActivity(myIntent,options.toBundle());
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoView.start();
     }
 
     public void setAnimation() {
@@ -104,19 +126,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void doSignIn(String email,String password) throws Exception{
-
-        progressBar.setVisibility(View.VISIBLE);
-
+        catLoadingView.setCanceledOnTouchOutside(false);
+        catLoadingView.show(getSupportFragmentManager(), "Login");
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    progressBar.setVisibility(View.INVISIBLE);
                     moveToHome();
+                    catLoadingView.dismiss();
                 }
                 else {
-                    progressBar.setVisibility(View.INVISIBLE);
+                    catLoadingView.dismiss();
                     Toast.makeText(LoginActivity.this,
                             "Username atau password yang anda masukkan salah", Toast.LENGTH_SHORT).show();
                 }

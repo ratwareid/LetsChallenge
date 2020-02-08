@@ -6,7 +6,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.ratwareid.letschallenge"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -31,12 +31,12 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-
+    implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.google.firebase:firebase-auth:18.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.google.firebase:firebase-database:18.0.1'
-
+    implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'

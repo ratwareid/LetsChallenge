@@ -29,6 +29,13 @@
         android:layout_marginTop="-7dp"/>
 
         <AutoCompleteTextView
+            android:maxLines="1"
+            android:inputType="textAutoComplete"
+            android:padding="12dp"
+            android:background="@drawable/button_outlined"
+            android:layout_margin="8dp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_search_black"
             android:id="@+id/autocomplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +43,7 @@
             android:focusable="true"
             android:textColor="@color/black"
             android:focusableInTouchMode="true"
-            android:hint="Cari..."/>
+            android:hint="Cari Lomba..."/>
 
     <ScrollView
         android:layout_width="match_parent"

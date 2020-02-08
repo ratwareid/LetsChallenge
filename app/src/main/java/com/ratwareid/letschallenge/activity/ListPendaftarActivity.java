@@ -160,6 +160,11 @@ public class ListPendaftarActivity extends AppCompatActivity {
 
     public void startScan(){
         intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setPrompt("Scan a barcode");
+        intentIntegrator.setCameraId(0);  // Use a specific camera of the device
+        intentIntegrator.setOrientationLocked(true);
+        intentIntegrator.setBeepEnabled(true);
+        intentIntegrator.setCaptureActivity(CaptureActivityPortrait.class);
         intentIntegrator.initiateScan();
     }
 

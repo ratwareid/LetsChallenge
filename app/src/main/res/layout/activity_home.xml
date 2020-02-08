@@ -9,19 +9,20 @@
 
     <!--Content Main-->
     <FrameLayout
+        android:layout_above="@id/bn_main"
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
+        android:background="@color/white"
         android:id="@+id/bn_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
-
-        app:itemIconTint="@color/colorNavigationIcon"
-        app:itemTextColor="@color/colorNavigationText"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         android:orientation="horizontal">
 
         <com.gauravk.bubblenavigation.BubbleToggleView
