@@ -16,6 +16,7 @@
     <color name="cardblue">#4287f5</color>
     <color name="cardred">#f56642</color>
     <color name="standarttext">#737578</color>
-    <color name="greenlake">#00bcd4</color>
+    <color name="white">#FFF</color>
+    <color name="default_text_color">#37474f</color>
 
 </resources>

@@ -1,262 +1,344 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/cardblue"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="#f5f5f5">
 
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ProgressBar
-                android:id="@+id/progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-7dp"
-                android:backgroundTint="@android:color/white"
-                android:indeterminate="true"
-                android:indeterminateTint="#1a09d6"
-                android:max="100" />
-
-            <TextView
-                android:id="@+id/tv_nama"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/your_name"
-                android:paddingLeft="10dp"
-                android:paddingTop="20dp"
-                android:textColor="@color/yellow"
-                android:textSize="16dp"
-                android:fontFamily="@font/poppins_light" />
-
-            <RelativeLayout
-                android:id="@+id/groupphoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                app:layout_anchorGravity="left|bottom">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/CIV_btnadd"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignEnd="@id/CIV_profile"
-                    android:layout_alignBottom="@id/CIV_profile"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:elevation="5px"
-                    android:src="@drawable/ic_add_circle"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="2dp"
-                    app:civ_circle_background_color="@android:color/white" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/CIV_profile"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@color/abumuda"
-                    app:civ_border_color="@android:color/white"
-                    app:civ_border_width="1dp"
-                    app:civ_circle_background_color="@android:color/white" />
-
-                <ProgressBar
-                    android:id="@+id/progressbarphoto"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="-7dp"
-                    android:backgroundTint="@android:color/white"
-                    android:elevation="2px"
-                    android:indeterminate="true"
-                    android:indeterminateTint="@color/colorAccent"
-                    android:max="100"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/groupphoto"
-                android:layout_centerHorizontal="true"
-                android:enabled="false"
-                android:hint="\@your_uemail"
-                android:fontFamily="@font/poppins_light"
-                android:paddingHorizontal="10dp"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/tv_notlp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/et_email"
-                android:layout_centerHorizontal="true"
-                android:hint="Nomor telephone"
-                android:paddingHorizontal="10dp"
-                android:textColor="@android:color/white"
-                android:fontFamily="@font/poppins_light" />
-
-            <TextView
-                android:id="@+id/tv_alamat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_notlp"
-                android:layout_centerHorizontal="true"
-                android:hint="Alamat Lengkap Anda"
-                android:paddingHorizontal="10dp"
-                android:textColor="@android:color/white"
-                android:fontFamily="@font/poppins_light"/>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/top_rounded"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp">
-
-            <TextView
-                android:id="@+id/tv_bio"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:padding="20dp"
-                android:fontFamily="@font/poppins_light"
-                android:text="Tulis Biografi anda disini ..." />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_edit_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_bio"
-                android:layout_marginHorizontal="10dp"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/poppins_light"
-                android:text="Ubah Profile"
-                android:textColor="@android:color/black"
-                app:strokeColor="@android:color/white" />
+            android:layout_above="@id/btn_logout">
 
             <LinearLayout
-                android:id="@+id/groupList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btn_edit_profile"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent"
+                android:background="@color/cardblue"
+                android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_blue"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/cardblue">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-7dp"
+                        android:backgroundTint="@android:color/white"
+                        android:indeterminate="true"
+                        android:indeterminateTint="#1a09d6"
+                        android:max="100" />
+
+                    <RelativeLayout
+                        android:id="@+id/groupphoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="30dp"
+                        app:layout_anchorGravity="left|bottom">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/CIV_btnadd"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignEnd="@id/CIV_profile"
+                            android:layout_alignBottom="@id/CIV_profile"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:elevation="5px"
+                            android:src="@drawable/ic_add_circle"
+                            app:civ_border_color="#fff"
+                            app:civ_border_width="2dp"
+                            app:civ_circle_background_color="@android:color/white" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/CIV_profile"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@color/abumuda"
+                            app:civ_border_color="@android:color/white"
+                            app:civ_border_width="1dp"
+                            app:civ_circle_background_color="@android:color/white" />
+
+                        <ProgressBar
+                            android:id="@+id/progressbarphoto"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="-7dp"
+                            android:backgroundTint="@android:color/white"
+                            android:elevation="2px"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/colorAccent"
+                            android:max="100"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/groupphoto"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_nama"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="start"
+                            android:maxLines="2"
+                            android:text="Nama Anda"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp" />
+
+
+                        <TextView
+                            android:id="@+id/et_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_marginBottom="2dp"
+                            android:drawableStart="@drawable/ic_email"
+                            android:drawablePadding="8dp"
+                            android:enabled="false"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="start"
+                            android:text="Email Anda"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_notlp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="6dp"
+                            android:drawableStart="@drawable/ic_phone"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="start"
+                            android:text="Nomor Telephone"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/groupphoto"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:drawableStart="@drawable/ic_location_white"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Nama"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/top_rounded"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linearBio"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/ic_idea" />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lomba Dibuat"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/white"
-                            android:textSize="14dp"
-                            android:fontFamily="@font/poppins_light"
-                            android:textStyle="bold" />
+                            android:layout_margin="12dp"
+                            android:drawableStart="@drawable/ic_smile"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:gravity="center|start"
+                            android:text="Tentang Anda"
+                            android:textColor="#4287f5"
+                            android:textSize="16sp" />
 
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_red"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/cardred">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/ic_clipboard" />
 
                         <TextView
+                            android:id="@+id/tv_bio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lomba Didaftarkan"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/white"
-                            android:textSize="14dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:cursorVisible="false"
                             android:fontFamily="@font/poppins_light"
-                            android:textStyle="bold" />
+                            android:gravity="start|top"
+                            android:lines="5"
+                            android:scrollbars="vertical"
+                            android:text="Belum Ada Info Tentang Anda!"
+                            android:textColor="@color/default_text_color" />
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_edit_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:backgroundTint="#f5f5f5"
+                            android:fontFamily="@font/poppins_light"
+                            android:gravity="center_horizontal|center"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="Ubah Profile"
+                            android:textColor="@android:color/black"
+                            app:icon="@drawable/ic_edit"
+                            app:iconSize="18dp"
+                            app:iconTint="@color/black"
+                            app:rippleColor="#4DD0E1"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="1dp" />
+
+                        <LinearLayout
+                            android:id="@+id/groupList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/btn_edit_profile"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_blue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/cardblue">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="60dp"
+                                        android:layout_margin="10dp"
+                                        android:src="@drawable/ic_olympic" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_light"
+                                        android:text="Lomba Dibuat"
+                                        android:textAlignment="center"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_red"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="8dp">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="60dp"
+                                        android:layout_margin="10dp"
+                                        android:src="@drawable/ic_clipboard" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_light"
+                                        android:text="Lomba Terrdaftar"
+                                        android:textAlignment="center"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_TJ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/groupList"
+                            android:layout_marginHorizontal="10dp"
+                            android:backgroundTint="@android:color/white"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Tambah Jenis"
+                            android:textColor="@android:color/black"
+                            android:visibility="gone"
+                            app:strokeColor="@android:color/white" />
+
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_TJ"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/groupList"
-                android:layout_marginHorizontal="10dp"
-                android:backgroundTint="@android:color/white"
-                android:text="Tambah Jenis"
-                android:fontFamily="@font/poppins_light"
-                android:textColor="@android:color/black"
-                app:strokeColor="@android:color/white" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btn_TJ"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="100dp"
-                android:backgroundTint="@android:color/white"
-                android:text="Logout"
-                android:fontFamily="@font/poppins_light"
-                android:textColor="@android:color/black"
-                app:strokeColor="@android:color/white" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="6dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:fontFamily="@font/poppins_light"
+            android:padding="4dp"
+            android:text="Keluar"
+            android:textColor="@android:color/white"
+            app:strokeColor="@android:color/white" />
+    </RelativeLayout>
 
-        </LinearLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>

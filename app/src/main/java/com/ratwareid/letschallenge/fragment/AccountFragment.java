@@ -24,9 +24,11 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -80,11 +82,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AccountFragment extends Fragment implements View.OnClickListener {
+public class AccountFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
     private MaterialButton btnTJ;
     private Button btnLogout,btnEditProfile;
-    private EditText etEmail;
+    private TextView etEmail;
     private TextView tvBio,tvNoTlp,tvNama,tvAlamat;
     private FirebaseAuth fAuth;
     private CircleImageView CIVchangeimage,CIVprofile;
@@ -137,10 +139,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         tvNoTlp = view.findViewById(R.id.tv_notlp);
         tvAlamat = view.findViewById(R.id.tv_alamat);
         CIVprofile = view.findViewById(R.id.CIV_profile);
+
         cardred = view.findViewById(R.id.card_red);
         cardred.setOnClickListener(this);
         cardblue = view.findViewById(R.id.card_blue);
         cardblue.setOnClickListener(this);
+
+        tvBio.setMovementMethod(new ScrollingMovementMethod());
+        tvBio.setOnTouchListener(this);
     }
 
     @Override
@@ -424,4 +430,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         activity.startActivity(myIntent,options.toBundle());
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        v.getParent().requestDisallowInterceptTouchEvent(true);
+        return false;
+    }
 }

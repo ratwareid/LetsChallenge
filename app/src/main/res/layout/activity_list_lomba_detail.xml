@@ -1,351 +1,399 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ListLombaDetailActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorbottom"
-        app:titleTextColor="@android:color/white"
-        />
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorbottom"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextColor="@android:color/white" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageChallenge"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:paddingEnd="12dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textTitle"
+                    android:text="Judul Lomba"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/default_text_color"/>
+
+
+                <TextView
+                    android:drawablePadding="8dp"
+                    android:gravity="start"
+                    android:drawableStart="@drawable/ic_favorite_pink_outlined"
+                    android:textAllCaps="false"
+                    android:padding="8dp"
+                    android:id="@+id/btn_simpan"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tambah Ke Favorit"
+                    android:textColor="#F06292" />
+
+                <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:padding="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:drawablePadding="8dp"
+                                android:drawableStart="@drawable/ic_money"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="Biaya Pendaftaran"
+                                android:fontFamily="@font/montserrat"/>
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:id="@+id/biayapendaftaran"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Rp 120.000"
+                                android:fontFamily="@font/montserrat"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:drawablePadding="8dp"
+                                android:drawableStart="@drawable/ic_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="Tanggal Lomba"
+                                android:fontFamily="@font/montserrat"/>
+
+                            <TextView
+                                android:textColor="@color/default_text_color"
+                                android:id="@+id/TV_tanggallomba"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Rp 120.000"
+                                android:fontFamily="@font/montserrat"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:drawablePadding="8dp"
+                                android:drawableStart="@drawable/ic_location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="Alamat Lomba"
+                                android:fontFamily="@font/montserrat"/>
+
+                            <TextView
+                                android:textColor="@color/default_text_color"
+                                android:id="@+id/TV_tempatlomba"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Rp 120.000"
+                                android:fontFamily="@font/montserrat"
+                                android:textSize="16sp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/deskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:padding="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:drawablePadding="8dp"
+                            android:drawableStart="@drawable/ic_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="Deskripsi Lomba"
+                            android:fontFamily="@font/montserrat"/>
+
+                        <TextView
+                            android:layout_marginTop="6dp"
+                            android:textColor="@color/default_text_color"
+                            android:id="@+id/deskripsilomba"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="Deskripsi Lomba"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:padding="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:drawablePadding="8dp"
+                            android:drawableStart="@drawable/ic_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="Informasi Lainnya"
+                            android:fontFamily="@font/montserrat"/>
+
+                        <LinearLayout
+                            android:layout_marginTop="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:textColor="@color/default_text_color"
+                                android:layout_weight="1"
+                                android:drawablePadding="8dp"
+                                android:drawableStart="@drawable/ic_people"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="Jumlah Peserta"
+                                android:fontFamily="@font/montserrat"/>
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:layout_weight="1"
+                                android:id="@+id/jumlahpeserta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="125 Orang"
+                                android:fontFamily="@font/montserrat"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:textColor="@color/default_text_color"
+                                android:layout_weight="1"
+                                android:drawablePadding="8dp"
+                                android:drawableStart="@drawable/ic_winner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="Hadiah"
+                                android:fontFamily="@font/montserrat"/>
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:layout_weight="1"
+                                android:id="@+id/totalhadiah"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Rp 120.000"
+                                android:fontFamily="@font/montserrat"
+                                android:textSize="14sp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:padding="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:drawablePadding="8dp"
+                            android:drawableStart="@drawable/ic_person"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="Penyelenggara"
+                            android:fontFamily="@font/montserrat"/>
+
+
+                        <TextView
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/black"
+                            android:id="@+id/penyelenggara"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Muhammad Faisal"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/groupbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:gravity="center"
+                        android:drawableStart="@drawable/ic_send"
+                        android:layout_margin="8dp"
+                        android:textAllCaps="false"
+                        android:padding="8dp"
+                        android:id="@+id/btn_daftar"
+                        android:fontFamily="@font/montserrat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Daftar Lomba"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/button_rounded_join_challenge" />
+
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_qrcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/groupbtn"
+                    android:backgroundTint="@android:color/white"
+                    android:enabled="false"
+                    android:text="Tampilkan QRCode"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_showpendaftar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_qrcode"
+                    android:backgroundTint="@android:color/white"
+                    android:enabled="false"
+                    android:text="Tampilkan Pendaftar"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/TV_berhasildaftar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_qrcode"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/yellow"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:max="100"
+        android:layout_alignParentBottom="true"
         android:backgroundTint="@android:color/white"
-        android:layout_below="@id/toolbar"
+        android:indeterminate="true"
         android:indeterminateTint="#1a09d6"
-        android:layout_marginTop="-7dp"/>
+        android:max="100"
+        android:visibility="gone" />
 
-    <ScrollView
-        android:layout_below="@id/progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:id="@+id/header_lomba"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/CIV_lomba"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    app:civ_border_color="@color/black"
-                    app:civ_border_width="1dp"
-                    android:src="@color/abumuda"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:padding="5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_contest"/>
-
-                        <TextView
-                            android:id="@+id/TV_namalomba"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="15dp"
-                            android:layout_margin="5dp"
-                            android:textStyle="bold"
-                            android:hint="Nama Perlombaan"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_calendar"
-                            android:scaleType="fitXY"/>
-
-                        <TextView
-                            android:id="@+id/TV_tanggallomba"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="15dp"
-                            android:layout_margin="5dp"
-                            android:textStyle="bold"
-                            android:hint="Tanggal Pelaksanaan"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_placeholder"
-                            android:scaleType="fitXY"/>
-
-                        <TextView
-                            android:id="@+id/TV_tempatlomba"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="15dp"
-                            android:layout_margin="5dp"
-                            android:textStyle="bold"
-                            android:hint="Tempat Pelaksanaan"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/header_lomba"
-                android:layout_marginTop="30dp"
-                app:cardCornerRadius="3dp"
-                android:id="@+id/deskripsi">
-
-                <TextView
-                    android:id="@+id/deskripsilomba"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tulis Penjelasan Lomba Disini"
-                    android:padding="10dp"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/detaillomba"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/deskripsi"
-
-                app:cardCornerRadius="3dp"
-                android:paddingVertical="5dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="5"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:paddingHorizontal="10dp"
-                            android:text="Penyelenggara : " />
-
-                        <TextView
-                            android:id="@+id/penyelenggara"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="email@example.com"
-                            android:layout_weight="2"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="5"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Jenis Perlombaan: "
-                            android:layout_weight="3"/>
-
-                        <TextView
-                            android:id="@+id/namajenis"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Catur"
-                            android:layout_weight="2"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="5"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Jumlah Peserta: "
-                            android:layout_weight="3"/>
-
-                        <TextView
-                            android:id="@+id/jumlahpeserta"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="120 Orang"
-                            android:layout_weight="2"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="5"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Biaya Pendaftaran: "
-                            android:layout_weight="3"/>
-
-                        <TextView
-                            android:id="@+id/biayapendaftaran"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="120.000"
-                            android:layout_weight="2"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="5"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Total Hadiah: "
-                            android:layout_weight="3"/>
-
-                        <TextView
-                            android:id="@+id/totalhadiah"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="2.000.000"
-                            android:layout_weight="2"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <LinearLayout
-                android:id="@+id/groupbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/detaillomba"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_simpan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Simpan"
-                    android:textColor="@android:color/black"
-                    app:backgroundTint="@color/yellow"
-                    app:strokeColor="@color/yellow"
-                    />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_daftar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DAFTAR"
-                    android:textColor="@android:color/black"
-                    app:backgroundTint="@android:color/white"
-                    app:strokeColor="@android:color/white" />
-
-            </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_qrcode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/white"
-                android:enabled="false"
-                android:visibility="gone"
-                android:text="Tampilkan QRCode"
-                android:textColor="@android:color/black"
-                android:layout_below="@id/groupbtn"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_showpendaftar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/white"
-                android:enabled="false"
-                android:visibility="gone"
-                android:text="Tampilkan Pendaftar"
-                android:textColor="@android:color/black"
-                android:layout_below="@id/btn_qrcode"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/TV_berhasildaftar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textColor="@color/yellow"
-                android:layout_below="@id/btn_qrcode"
-                android:layout_marginTop="20dp"
-                android:visibility="invisible" />
-
-
-        </RelativeLayout>
-
-    </ScrollView>
 
 </RelativeLayout>

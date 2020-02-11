@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,13 +54,18 @@ public class HomeFragment extends Fragment {
     public void initialize(View view){
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView = view.findViewById(R.id.RV_Jenis);
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),4));
-        }
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),8));
-        }
+
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+
+        recyclerView.setLayoutManager(manager);
+
+//        int orientation = getResources().getConfiguration().orientation;
+//        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),4));
+//        }
+//        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),8));
+//        }
 
         activity = (HomeActivity) this.getActivity();
         context = this.getContext();

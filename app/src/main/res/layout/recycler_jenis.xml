@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_margin="4dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="14dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <ImageView
-            android:id="@+id/img_jenis"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/sample_icon"
-            android:layout_centerHorizontal="true"/>
-
-        <TextView
-            android:id="@+id/nama_jenis"
+        <LinearLayout
+            android:padding="8dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="jenis"
-            android:textAlignment="center"
-            android:fontFamily="@font/poppins_light"
-            android:layout_below="@id/img_jenis"/>
+            android:gravity="center">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/img_jenis"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_launcher_background"/>
 
-</LinearLayout>
+            <TextView
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:id="@+id/nama_jenis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jenis"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_light"
+                android:layout_below="@id/img_jenis"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
