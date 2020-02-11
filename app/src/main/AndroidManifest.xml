@@ -35,9 +35,18 @@
         <activity
             android:name=".activity.ListLombaTerdaftarActivity"
             android:label="List Perlombaan Terdaftar"
-            android:parentActivityName=".activity.HomeActivity">
+            android:parentActivityName=".activity.HomeActivity"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"
                 android:value=".activity.HomeActivity" />
         </activity>
         <activity
